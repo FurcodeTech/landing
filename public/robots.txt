@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://furcode.com.ar/sitemap.xml
