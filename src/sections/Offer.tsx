@@ -1,72 +1,92 @@
 type OfferCardProps = {
   title: string;
-  desc: string;
+  description: string;
   tag: string;
+  items: string[];
 };
 
-function OfferCard({ title, desc, tag }: OfferCardProps) {
+const offers: OfferCardProps[] = [
+  {
+    tag: "Producto",
+    title: "Software a medida",
+    description:
+      "Herramientas internas, portales y automatizaciones pensadas para la forma real de trabajar de tu negocio.",
+    items: ["Gestión", "Automatización", "Integraciones"],
+  },
+  {
+    tag: "Servicio",
+    title: "Implementación IT",
+    description:
+      "Acompañamiento para ordenar procesos, elegir herramientas y dejar sistemas funcionando sin ruido operativo.",
+    items: ["Diagnóstico", "Puesta en marcha", "Soporte"],
+  },
+  {
+    tag: "Formación",
+    title: "Academia práctica",
+    description:
+      "Capacitación directa para equipos y profesionales que necesitan usar tecnología con seguridad y autonomía.",
+    items: ["Equipos", "Procesos", "Criterio técnico"],
+  },
+];
+
+function OfferCard({ title, description, tag, items }: OfferCardProps) {
   return (
-    <div className="group rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
-      <div className="flex items-center justify-between">
-        <span className="rounded-full bg-slate-50 px-3 py-1 text-xs font-medium text-slate-700 ring-1 ring-slate-200">
-          {tag}
-        </span>
+    <article className="h-full rounded-lg border border-slate-200 bg-white p-4 transition hover:border-slate-300 hover:shadow-sm sm:p-5">
+      <div className="flex items-center justify-between gap-4">
+        <span className="text-xs font-semibold uppercase text-slate-500">{tag}</span>
         <span className="h-2 w-2 rounded-full bg-lime-400" />
       </div>
 
-      <h3 className="mt-4 text-lg font-semibold">{title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-slate-600">{desc}</p>
+      <h3 className="mt-4 text-lg font-semibold tracking-tight text-slate-950 sm:mt-5 sm:text-xl">
+        {title}
+      </h3>
+      <p className="mt-3 text-sm leading-7 text-slate-600">{description}</p>
 
-      <div className="mt-5">
-        <a
-          href="#contacto"
-          className="inline-flex items-center text-sm font-semibold text-slate-900 underline decoration-lime-300 underline-offset-4 hover:decoration-lime-400"
-        >
-          Hablemos
-        </a>
-      </div>
-    </div>
+      <ul className="mt-5 flex flex-wrap gap-2 sm:mt-6">
+        {items.map((item) => (
+          <li
+            key={item}
+            className="rounded-md bg-slate-50 px-2.5 py-1.5 text-xs font-medium text-slate-700 ring-1 ring-slate-200"
+          >
+            {item}
+          </li>
+        ))}
+      </ul>
+
+      <a
+        href="#contacto"
+        className="mt-6 inline-flex text-sm font-semibold text-slate-950 underline decoration-lime-300 underline-offset-4 transition hover:decoration-lime-500 sm:mt-7"
+      >
+        Consultar
+      </a>
+    </article>
   );
 }
 
 export default function Offer() {
   return (
-    <section id="oferta" className="bg-slate-50">
-      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-              Qué ofrecemos
-            </h2>
-            <p className="mt-2 max-w-2xl text-slate-600">
-              Tres caminos, un objetivo: mejorar eficiencia, control y resultados.
-            </p>
-          </div>
-
-          <a
-            href="#contacto"
-            className="inline-flex items-center justify-center rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-900 ring-1 ring-slate-200 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-lime-300 focus:ring-offset-2"
-          >
-            Pedir propuesta
-          </a>
+    <section id="oferta" className="snap-section overflow-hidden bg-white">
+      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
+        <div className="max-w-3xl">
+          <p className="text-xs font-semibold uppercase text-slate-500 sm:text-sm">
+            Qué ofrecemos
+          </p>
+          <h2 className="mt-3 text-2xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+            Tres formas de convertir tecnología en avance concreto.
+          </h2>
+          <p className="mt-4 text-base leading-7 text-slate-600 sm:leading-8">
+            Podés empezar por una solución puntual, una mejora operativa o una
+            capacitación. El objetivo siempre es el mismo: claridad, control y
+            resultados.
+          </p>
         </div>
 
-        <div className="mt-8 grid gap-5 lg:grid-cols-3">
-          <OfferCard
-            tag="Producto"
-            title="Softwares"
-            desc="Soluciones modulares para automatizar tareas, mejorar la gestión y adaptarse a tu forma de trabajar."
-          />
-          <OfferCard
-            tag="Servicio"
-            title="Servicios"
-            desc="Consultoría e implementación orientada a resultados. Analizamos, optimizamos y dejamos todo funcionando."
-          />
-          <OfferCard
-            tag="Formación"
-            title="Academia"
-            desc="Capacitación práctica para equipos y profesionales que quieren usar tecnología sin vueltas."
-          />
+        <div className="mt-8 -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:snap-none sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:mt-9 lg:grid-cols-3">
+          {offers.map((offer) => (
+            <div key={offer.title} className="min-w-[82%] snap-center sm:min-w-0">
+              <OfferCard {...offer} />
+            </div>
+          ))}
         </div>
       </div>
     </section>
