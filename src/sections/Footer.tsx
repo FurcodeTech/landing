@@ -152,7 +152,7 @@ export default function Footer() {
               <p className="text-sm font-semibold text-white">Canales directos</p>
               <div className="mt-4 space-y-3 text-sm">
                 <button
-                  className="block w-full rounded-lg border border-white/10 p-3 text-left font-semibold text-white transition hover:border-lime-300/60 sm:p-4"
+                  className="block w-full rounded-lg border border-white/10 p-3 text-left font-semibold text-white transition hover:border-lime-300/60 focus:outline-none focus:ring-2 focus:ring-lime-300 focus:ring-offset-2 focus:ring-offset-slate-950 sm:p-4"
                   type="button"
                   onClick={() => setActiveModal("contact")}
                 >
@@ -162,7 +162,7 @@ export default function Footer() {
                   </span>
                 </button>
                 <button
-                  className="block w-full rounded-lg border border-white/10 p-3 text-left font-semibold text-white transition hover:border-lime-300/60 sm:p-4"
+                  className="block w-full rounded-lg border border-white/10 p-3 text-left font-semibold text-white transition hover:border-lime-300/60 focus:outline-none focus:ring-2 focus:ring-lime-300 focus:ring-offset-2 focus:ring-offset-slate-950 sm:p-4"
                   type="button"
                   onClick={() => setActiveModal("jobs")}
                 >
@@ -227,7 +227,7 @@ export default function Footer() {
                 </h3>
               </div>
               <button
-                className="rounded-md border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-400"
+                className="rounded-md border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-400 focus:outline-none focus:ring-2 focus:ring-lime-300"
                 type="button"
                 onClick={closeModal}
               >
@@ -271,6 +271,7 @@ export default function Footer() {
                       return (
                         <button
                           key={product.title}
+                          aria-pressed={isSelected}
                           className={`rounded-lg border p-3 text-left transition ${
                             isSelected
                               ? "border-slate-950 bg-slate-950 text-white"
@@ -310,6 +311,9 @@ export default function Footer() {
                 >
                   Enviar mail
                 </button>
+                <p className="text-xs leading-5 text-slate-500">
+                  Al enviar se abrirá tu cliente de correo con el asunto y mensaje listos.
+                </p>
               </form>
             ) : (
               <form className="mt-5 space-y-5" onSubmit={handleJobSubmit}>
@@ -366,6 +370,9 @@ export default function Footer() {
                 >
                   Enviar postulación
                 </button>
+                <p className="text-xs leading-5 text-slate-500">
+                  Al enviar se abrirá tu cliente de correo. Adjuntá el CV seleccionado antes de confirmar el envío.
+                </p>
               </form>
             )}
           </div>

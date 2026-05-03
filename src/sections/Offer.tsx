@@ -81,11 +81,21 @@ export default function Offer() {
           </p>
         </div>
 
-        <div className="mt-8 -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:snap-none sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:mt-9 lg:grid-cols-3">
+        <p className="mt-6 text-xs font-semibold uppercase text-slate-400 sm:hidden">
+          Deslizá para ver opciones
+        </p>
+
+        <div className="no-scrollbar mt-3 -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 sm:mx-0 sm:mt-8 sm:grid sm:snap-none sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:mt-9 lg:grid-cols-3">
           {offers.map((offer) => (
             <div key={offer.title} className="min-w-[82%] snap-center sm:min-w-0">
               <OfferCard {...offer} />
             </div>
+          ))}
+        </div>
+
+        <div className="mt-1 flex gap-2 sm:hidden" aria-hidden="true">
+          {offers.map((offer) => (
+            <span key={offer.title} className="h-1.5 w-6 rounded-full bg-slate-300" />
           ))}
         </div>
       </div>

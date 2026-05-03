@@ -156,6 +156,14 @@ export default function Hero() {
             </div>
           </div>
         </div>
+
+        <div className="hidden items-center justify-between border-t border-white/10 pt-4 text-xs text-slate-300 lg:flex">
+          <span>Scroll suave por secciones</span>
+          <span className="inline-flex items-center gap-2">
+            <span className="h-px w-8 bg-lime-300" />
+            Siguiente: Nosotros
+          </span>
+        </div>
       </div>
     </section>
   );
