@@ -1,4 +1,10 @@
 import { useEffect, useId, useState } from "react";
+import {
+  buildGmailComposeUrl,
+  buildOutlookComposeUrl,
+  contactEmail,
+  openComposeTab,
+} from "../lib/contact";
 
 const contactReasons = [
   "Crear una herramienta interna",
@@ -29,15 +35,6 @@ const productOptions = [
 
 type ModalType = "contact" | "jobs" | null;
 
-const buildMailto = (email: string, subject: string, body: string) => {
-  const params = new URLSearchParams({
-    subject,
-    body,
-  });
-
-  return `mailto:${email}?${params.toString()}`;
-};
-
 function FieldLabel({ htmlFor, children }: { htmlFor: string; children: string }) {
   return (
     <label htmlFor={htmlFor} className="text-sm font-semibold text-slate-800">
@@ -48,6 +45,7 @@ function FieldLabel({ htmlFor, children }: { htmlFor: string; children: string }
 
 export default function Footer() {
   const [activeModal, setActiveModal] = useState<ModalType>(null);
+  const [composeProvider, setComposeProvider] = useState<"gmail" | "outlook">("gmail");
   const [companyName, setCompanyName] = useState("");
   const [contactName, setContactName] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(productOptions[0].title);
@@ -63,17 +61,21 @@ export default function Footer() {
   const cvId = useId();
   const jobMessageId = useId();
 
+  const getComposeUrl = (subject: string, body: string) => {
+    return composeProvider === "gmail"
+      ? buildGmailComposeUrl(contactEmail, subject, body)
+      : buildOutlookComposeUrl(contactEmail, subject, body);
+  };
+
   const closeModal = () => setActiveModal(null);
 
   useEffect(() => {
     if (!activeModal) {
-      delete document.body.dataset.modalOpen;
       return;
     }
 
     const previousOverflow = document.body.style.overflow;
 
-    document.body.dataset.modalOpen = "true";
     document.body.style.overflow = "hidden";
 
     const handleEscape = (event: KeyboardEvent) => {
@@ -86,7 +88,6 @@ export default function Footer() {
 
     return () => {
       window.removeEventListener("keydown", handleEscape);
-      delete document.body.dataset.modalOpen;
       document.body.style.overflow = previousOverflow;
     };
   }, [activeModal]);
@@ -94,8 +95,16 @@ export default function Footer() {
   const handleContactSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const subject = `${companyName} || ${contactName} || ${selectedProduct}`;
-    window.location.href = buildMailto("marcosfurco22@gmail.com", subject, contactMessage);
+    const subject = `${companyName} | ${selectedProduct}`;
+    const body = [
+      `Nombre: ${contactName}`,
+      `Empresa: ${companyName}`,
+      `Interes: ${selectedProduct}`,
+      "",
+      contactMessage,
+    ].join("\n");
+
+    openComposeTab(getComposeUrl(subject, body));
     closeModal();
   };
 
@@ -110,23 +119,19 @@ export default function Footer() {
         : "CV pendiente de adjuntar.",
     ].join("\n");
 
-    window.location.href = buildMailto(
-      "marcosfurco22@gmail.com",
-      `Postulación || ${applicantName}`,
-      body,
-    );
+    openComposeTab(getComposeUrl(`Postulacion | ${applicantName}`, body));
     closeModal();
   };
 
   return (
-    <footer id="contacto" className="snap-section bg-slate-950 text-white">
-      <div className="mx-auto flex max-w-6xl flex-col px-4 py-10 sm:px-6 sm:py-12 lg:min-h-dvh lg:justify-center lg:px-8">
+    <footer id="contacto" className="bg-[#111111] text-white">
+      <div className="mx-auto flex max-w-6xl flex-col px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
         <div className="grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-start lg:gap-12">
           <div>
-            <p className="text-xs font-semibold uppercase text-lime-300 sm:text-sm">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-300 sm:text-sm">
               Contacto
             </p>
-            <h2 className="mt-3 max-w-2xl text-2xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
+            <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
               Contanos qué querés ordenar, automatizar o construir.
             </h2>
             <p className="mt-4 max-w-xl text-sm leading-7 text-slate-300 sm:text-base">
@@ -138,9 +143,9 @@ export default function Footer() {
               {contactReasons.map((reason) => (
                 <div
                   key={reason}
-                  className="rounded-lg border border-white/10 bg-white/[0.03] p-4 text-sm font-medium text-slate-200"
+                  className="rounded-[1.1rem] border border-white/10 bg-white/[0.03] p-4 text-sm font-medium text-slate-200"
                 >
-                  <span className="mb-3 block h-2 w-2 rounded-full bg-lime-300" />
+                  <span className="mb-3 block h-2 w-2 rounded-full bg-amber-300" />
                   {reason}
                 </div>
               ))}
@@ -148,45 +153,64 @@ export default function Footer() {
           </div>
 
           <div className="space-y-4">
-            <div className="rounded-lg border border-white/10 bg-white/[0.03] p-4 sm:p-5">
+            <div className="rounded-[1.3rem] border border-white/10 bg-white/[0.03] p-4 sm:p-5">
               <p className="text-sm font-semibold text-white">Canales directos</p>
               <div className="mt-4 space-y-3 text-sm">
-                <button
-                  className="block w-full rounded-lg border border-white/10 p-3 text-left font-semibold text-white transition hover:border-lime-300/60 focus:outline-none focus:ring-2 focus:ring-lime-300 focus:ring-offset-2 focus:ring-offset-slate-950 sm:p-4"
-                  type="button"
-                  onClick={() => setActiveModal("contact")}
+                <a
+                  className="block w-full rounded-[1rem] border border-white/10 p-3 text-left font-semibold text-white transition hover:border-amber-300/60 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-[#111111] sm:p-4"
+                  href={buildGmailComposeUrl(
+                    contactEmail,
+                    "Consulta para Furcode",
+                    "Hola Furcode,\n\nQuiero contarles un proceso que quiero ordenar y ver si encaja con lo que hacen.\n\nQuedo atento/a.",
+                  )}
+                  target="_blank"
+                  rel="noreferrer noopener"
                 >
-                  marcosfurco22@gmail.com
+                  {contactEmail}
                   <span className="mt-1 block font-normal text-slate-400">
-                    Proyectos y consultas
+                    Abrir en Gmail
                   </span>
-                </button>
+                </a>
                 <button
-                  className="block w-full rounded-lg border border-white/10 p-3 text-left font-semibold text-white transition hover:border-lime-300/60 focus:outline-none focus:ring-2 focus:ring-lime-300 focus:ring-offset-2 focus:ring-offset-slate-950 sm:p-4"
+                  className="block w-full rounded-[1rem] border border-white/10 p-3 text-left font-semibold text-white transition hover:border-white/25 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-[#111111] sm:p-4"
                   type="button"
-                  onClick={() => setActiveModal("jobs")}
+                  onClick={() =>
+                    openComposeTab(
+                      buildOutlookComposeUrl(
+                        contactEmail,
+                        "Consulta para Furcode",
+                        "Hola Furcode,\n\nQuiero contarles un proceso que quiero ordenar y ver si encaja con lo que hacen.\n\nQuedo atento/a.",
+                      ),
+                    )
+                  }
                 >
-                  marcosfurco22@gmail.com
+                  {contactEmail}
                   <span className="mt-1 block font-normal text-slate-400">
-                    Talento y colaboraciones
+                    Abrir en Outlook
                   </span>
                 </button>
               </div>
             </div>
 
-            <div className="rounded-lg border border-lime-300/30 bg-lime-300/10 p-4 sm:p-5">
-              <p className="text-sm font-semibold text-lime-100">
-                Para avanzar más rápido
-              </p>
+            <div className="rounded-[1.3rem] border border-amber-300/25 bg-amber-300/10 p-4 sm:p-5">
+              <p className="text-sm font-semibold text-amber-100">Para avanzar más rápido</p>
               <ul className="mt-4 space-y-3 text-sm text-slate-200">
                 {firstMessage.map((item) => (
                   <li key={item} className="flex gap-3">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-lime-300" />
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-300" />
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
+
+            <button
+              type="button"
+              onClick={() => setActiveModal("contact")}
+              className="inline-flex w-full items-center justify-center rounded-full bg-amber-300 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-[#111111] sm:w-auto"
+            >
+              Abrir formulario guiado
+            </button>
           </div>
         </div>
 
@@ -199,7 +223,6 @@ export default function Footer() {
       {activeModal && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 px-4 py-6 backdrop-blur-sm"
-          data-snap-ignore="true"
           role="presentation"
           onMouseDown={(event) => {
             if (event.target === event.currentTarget) {
@@ -208,7 +231,7 @@ export default function Footer() {
           }}
         >
           <div
-            className="max-h-[min(760px,calc(100dvh-3rem))] w-full max-w-2xl overflow-y-auto rounded-lg bg-white p-5 text-slate-950 shadow-2xl sm:p-6"
+            className="max-h-[min(760px,calc(100dvh-3rem))] w-full max-w-2xl overflow-y-auto rounded-[1.4rem] bg-white p-5 text-slate-950 shadow-2xl sm:p-6"
             data-modal="true"
             role="dialog"
             aria-modal="true"
@@ -216,7 +239,7 @@ export default function Footer() {
           >
             <div className="flex items-start justify-between gap-4 border-b border-slate-200 pb-4">
               <div>
-                <p className="text-xs font-semibold uppercase text-slate-500">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
                   {activeModal === "contact" ? "Proyectos y consultas" : "Talento"}
                 </p>
                 <h3
@@ -227,7 +250,7 @@ export default function Footer() {
                 </h3>
               </div>
               <button
-                className="rounded-md border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-400 focus:outline-none focus:ring-2 focus:ring-lime-300"
+                className="rounded-full border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-300"
                 type="button"
                 onClick={closeModal}
               >
@@ -237,32 +260,78 @@ export default function Footer() {
 
             {activeModal === "contact" ? (
               <form className="mt-5 space-y-5" onSubmit={handleContactSubmit}>
+                <div className="space-y-2">
+                  <p className="text-sm font-semibold text-slate-800">Abrir en</p>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <button
+                      type="button"
+                      onClick={() => setComposeProvider("gmail")}
+                      aria-pressed={composeProvider === "gmail"}
+                      className={`rounded-[1rem] border px-4 py-3 text-left transition ${
+                        composeProvider === "gmail"
+                          ? "border-slate-950 bg-slate-950 text-white"
+                          : "border-slate-200 bg-slate-50 text-slate-800 hover:border-slate-400"
+                      }`}
+                    >
+                      <span className="block text-sm font-semibold">Gmail</span>
+                      <span
+                        className={`mt-1 block text-xs ${
+                          composeProvider === "gmail" ? "text-slate-300" : "text-slate-500"
+                        }`}
+                      >
+                        Nueva pestaña del navegador
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setComposeProvider("outlook")}
+                      aria-pressed={composeProvider === "outlook"}
+                      className={`rounded-[1rem] border px-4 py-3 text-left transition ${
+                        composeProvider === "outlook"
+                          ? "border-slate-950 bg-slate-950 text-white"
+                          : "border-slate-200 bg-slate-50 text-slate-800 hover:border-slate-400"
+                      }`}
+                    >
+                      <span className="block text-sm font-semibold">Outlook</span>
+                      <span
+                        className={`mt-1 block text-xs ${
+                          composeProvider === "outlook" ? "text-slate-300" : "text-slate-500"
+                        }`}
+                      >
+                        Nueva pestaña del navegador
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-2">
                     <FieldLabel htmlFor={companyId}>Nombre de la empresa</FieldLabel>
                     <input
                       id={companyId}
-                      className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-lime-300"
+                      className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-amber-300"
                       required
                       value={companyName}
                       onChange={(event) => setCompanyName(event.target.value)}
+                      autoComplete="organization"
                     />
                   </div>
                   <div className="space-y-2">
-                    <FieldLabel htmlFor={contactId}>Forma de contacto (mail/telefono)</FieldLabel>
+                    <FieldLabel htmlFor={contactId}>Tu nombre</FieldLabel>
                     <input
                       id={contactId}
-                      className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-lime-300"
+                      className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-amber-300"
                       required
                       value={contactName}
                       onChange={(event) => setContactName(event.target.value)}
+                      autoComplete="name"
                     />
                   </div>
                 </div>
 
                 <fieldset>
                   <legend className="text-sm font-semibold text-slate-800">
-                    Producto por el que nos contactás
+                    Producto por el que nos contactas
                   </legend>
                   <div className="mt-3 grid gap-3 sm:grid-cols-3">
                     {productOptions.map((product) => {
@@ -298,7 +367,7 @@ export default function Footer() {
                   <FieldLabel htmlFor={contactMessageId}>Contexto del proyecto</FieldLabel>
                   <textarea
                     id={contactMessageId}
-                    className="min-h-32 w-full resize-y rounded-md border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-lime-300"
+                    className="min-h-32 w-full resize-y rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-amber-300"
                     required
                     value={contactMessage}
                     onChange={(event) => setContactMessage(event.target.value)}
@@ -306,32 +375,77 @@ export default function Footer() {
                 </div>
 
                 <button
-                  className="inline-flex w-full items-center justify-center rounded-md bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-lime-300 focus:ring-offset-2 sm:w-auto"
+                  className="inline-flex w-full items-center justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 sm:w-auto"
                   type="submit"
                 >
-                  Enviar mail
+                  {composeProvider === "gmail" ? "Enviar en Gmail" : "Enviar en Outlook"}
                 </button>
                 <p className="text-xs leading-5 text-slate-500">
-                  Al enviar se abrirá tu cliente de correo con el asunto y mensaje listos.
+                  Al enviar se abrirá una pestaña nueva del navegador con el mensaje listo.
                 </p>
               </form>
             ) : (
               <form className="mt-5 space-y-5" onSubmit={handleJobSubmit}>
                 <div className="space-y-2">
+                  <p className="text-sm font-semibold text-slate-800">Abrir en</p>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <button
+                      type="button"
+                      onClick={() => setComposeProvider("gmail")}
+                      aria-pressed={composeProvider === "gmail"}
+                      className={`rounded-[1rem] border px-4 py-3 text-left transition ${
+                        composeProvider === "gmail"
+                          ? "border-slate-950 bg-slate-950 text-white"
+                          : "border-slate-200 bg-slate-50 text-slate-800 hover:border-slate-400"
+                      }`}
+                    >
+                      <span className="block text-sm font-semibold">Gmail</span>
+                      <span
+                        className={`mt-1 block text-xs ${
+                          composeProvider === "gmail" ? "text-slate-300" : "text-slate-500"
+                        }`}
+                      >
+                        Nueva pestaña del navegador
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setComposeProvider("outlook")}
+                      aria-pressed={composeProvider === "outlook"}
+                      className={`rounded-[1rem] border px-4 py-3 text-left transition ${
+                        composeProvider === "outlook"
+                          ? "border-slate-950 bg-slate-950 text-white"
+                          : "border-slate-200 bg-slate-50 text-slate-800 hover:border-slate-400"
+                      }`}
+                    >
+                      <span className="block text-sm font-semibold">Outlook</span>
+                      <span
+                        className={`mt-1 block text-xs ${
+                          composeProvider === "outlook" ? "text-slate-300" : "text-slate-500"
+                        }`}
+                      >
+                        Nueva pestaña del navegador
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
                   <FieldLabel htmlFor={applicantId}>Nombre</FieldLabel>
                   <input
                     id={applicantId}
-                    className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-lime-300"
+                    className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-amber-300"
                     required
                     value={applicantName}
                     onChange={(event) => setApplicantName(event.target.value)}
+                    autoComplete="name"
                   />
                 </div>
 
                 <div className="space-y-2">
                   <FieldLabel htmlFor={cvId}>CV</FieldLabel>
                   <label
-                    className="flex cursor-pointer flex-col rounded-lg border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600 transition hover:border-slate-500"
+                    className="flex cursor-pointer flex-col rounded-[1rem] border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600 transition hover:border-slate-500"
                     htmlFor={cvId}
                   >
                     <span className="font-semibold text-slate-900">
@@ -354,10 +468,10 @@ export default function Footer() {
                 </div>
 
                 <div className="space-y-2">
-                  <FieldLabel htmlFor={jobMessageId}>Presentación</FieldLabel>
+                  <FieldLabel htmlFor={jobMessageId}>Presentacion</FieldLabel>
                   <textarea
                     id={jobMessageId}
-                    className="min-h-32 w-full resize-y rounded-md border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-lime-300"
+                    className="min-h-32 w-full resize-y rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-amber-300"
                     required
                     value={jobMessage}
                     onChange={(event) => setJobMessage(event.target.value)}
@@ -365,13 +479,13 @@ export default function Footer() {
                 </div>
 
                 <button
-                  className="inline-flex w-full items-center justify-center rounded-md bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-lime-300 focus:ring-offset-2 sm:w-auto"
+                  className="inline-flex w-full items-center justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 sm:w-auto"
                   type="submit"
                 >
-                  Enviar postulación
+                  {composeProvider === "gmail" ? "Enviar en Gmail" : "Enviar en Outlook"}
                 </button>
                 <p className="text-xs leading-5 text-slate-500">
-                  Al enviar se abrirá tu cliente de correo. Adjuntá el CV seleccionado antes de confirmar el envío.
+                  Al enviar se abrirá una pestaña nueva del navegador. Adjuntá el CV antes de confirmar el envío.
                 </p>
               </form>
             )}
