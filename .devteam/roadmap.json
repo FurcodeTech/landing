@@ -1,6 +1,6 @@
 {
   "goal": "Publicar en develop todos los cambios nuevos de la landing, incluyendo la documentacion de Vercel Analytics, y comprobar que Analytics, Speed Insights y el nuevo deploy funcionen correctamente.",
-  "status": "approved",
+  "status": "completed",
   "recommendedApproach": "complete-release-and-live-verification",
   "approaches": [
     {
@@ -23,7 +23,7 @@
     {
       "id": "release-complete-landing-with-vercel-telemetry",
       "title": "Validar y publicar la landing completa con telemetria Vercel",
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [],
       "acceptanceCriteria": [
         "Analytics y Speed Insights permanecen instalados en package.json y package-lock.json.",

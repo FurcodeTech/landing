@@ -1,10 +1,12 @@
 {
-  "roadmapStatus": "approved",
-  "currentTask": "release-complete-landing-with-vercel-telemetry",
+  "roadmapStatus": "completed",
+  "currentTask": null,
   "tasks": {
-    "release-complete-landing-with-vercel-telemetry": "in_progress"
+    "release-complete-landing-with-vercel-telemetry": "completed"
   },
-  "completedTasks": [],
+  "completedTasks": [
+    "release-complete-landing-with-vercel-telemetry"
+  ],
   "filesChanged": [
     ".devteam/roadmap.json",
     ".devteam/progress.json",
@@ -29,7 +31,11 @@
     "npm.cmd run build",
     "git diff --check",
     "Revision de marcadores de Analytics y Speed Insights en el bundle de produccion",
-    "Revision visual desktop y movil; modal y contactos incluidos"
+    "Revision visual desktop y movil; modal y contactos incluidos",
+    "git push -u origin develop (commit 462160d)",
+    "vercel deploy --prod --yes",
+    "Verificacion HTTP de pagina y scripts de telemetria",
+    "Verificacion DOM de un script Analytics y un script Speed Insights"
   ],
   "verification": [
     "Analytics y Speed Insights ya estan presentes en origin/develop",
@@ -37,7 +43,11 @@
     "Dependencias Vercel resueltas sin errores",
     "ESLint y build Vite exitosos",
     "Bundle contiene /_vercel/insights/script.js y /_vercel/speed-insights/script.js",
-    "Ojo aprobo desktop y movil sin hallazgos bloqueantes"
+    "Ojo aprobo desktop y movil sin hallazgos bloqueantes",
+    "Deployment dpl_G4T4ttBeX2YHXcP9HELyiWDYHbci Ready en produccion",
+    "https://furcode.com.ar responde 200",
+    "Los endpoints /_vercel/insights/script.js y /_vercel/speed-insights/script.js responden 200",
+    "Produccion inyecta exactamente un script de Analytics y uno de Speed Insights"
   ],
-  "nextStep": "Commitear todo el release, pushear develop y verificar el deployment de produccion."
+  "nextStep": "Mision finalizada. Revisar datos en los dashboards de Vercel cuando acumulen trafico real."
 }
