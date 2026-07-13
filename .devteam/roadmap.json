@@ -1,0 +1,45 @@
+{
+  "goal": "Reemplazar la card de Software a medida por una entrada a Nuestros productos que abra un modal accesible con un carrusel preparado para las apps de Furcode.",
+  "status": "completed",
+  "recommendedApproach": "native-offer-modal",
+  "approaches": [
+    {
+      "id": "native-offer-modal",
+      "label": "Modal y carrusel nativos dentro de Offer",
+      "tradeoff": "Menor cambio y sin dependencias; deja los productos como datos reutilizables y el carrusel listo para crecer."
+    },
+    {
+      "id": "carousel-library",
+      "label": "Agregar una libreria de carrusel",
+      "tradeoff": "Aporta gestos y opciones avanzadas, pero suma peso y complejidad innecesarios mientras existe una sola app."
+    },
+    {
+      "id": "global-products-modal",
+      "label": "Modal global a nivel App",
+      "tradeoff": "Facilita abrirlo desde futuras secciones, pero amplía el alcance y acopla estado global antes de necesitarlo."
+    }
+  ],
+  "tasks": [
+    {
+      "id": "products-card-modal",
+      "title": "Crear la card Nuestros productos y el modal carrusel",
+      "status": "completed",
+      "dependencies": [],
+      "acceptanceCriteria": [
+        "La primera card de la oferta dice Nuestros productos y comunica que agrupa las apps de Furcode.",
+        "Toda la card es operable por click y teclado y abre un modal accesible.",
+        "El modal se cierra con boton, click en backdrop y tecla Escape, y bloquea el scroll de fondo.",
+        "El contenido usa una estructura de datos lista para multiples apps y controles de carrusel que no estorban cuando solo hay una.",
+        "Backoffice se muestra en una mini card con miniatura, descripcion breve y una pill Free trial por 2 semanas.",
+        "Al activar la mini card se abre el deploy de Backoffice en una nueva pestaña segura.",
+        "La experiencia es responsive y respeta el estilo cercano y premium existente.",
+        "Lint y build finalizan correctamente."
+      ],
+      "risks": [
+        "El repositorio ya contiene cambios locales sin commit; se limitaran las ediciones a Offer y a los registros de DevTeam.",
+        "La URL del deploy se verificara antes de dejarla como destino definitivo.",
+        "El foco del modal debe gestionarse para no degradar accesibilidad."
+      ]
+    }
+  ]
+}
