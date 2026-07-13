@@ -39,7 +39,7 @@ export default function Faq() {
               más como un partner de trabajo que como un proveedor genérico.
             </p>
 
-            <div className="rounded-[1.4rem] border border-slate-200 bg-white/75 p-4 shadow-sm backdrop-blur sm:p-5">
+            <div className="rounded-[1.55rem] border border-slate-200 bg-white/[0.78] p-4 shadow-[0_16px_35px_rgba(15,23,42,0.05)] backdrop-blur sm:p-5">
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
                 Por qué Furcode
               </p>
@@ -52,17 +52,32 @@ export default function Faq() {
                 ))}
               </ul>
             </div>
+
+            <a
+              href="#contacto"
+              className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white/70 px-5 py-3 text-sm font-semibold text-slate-950 shadow-[0_12px_28px_rgba(15,23,42,0.05)] transition hover:border-slate-400 hover:bg-white focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-transparent"
+            >
+              Escribir ahora
+            </a>
           </div>
 
           <div className="space-y-3">
-            {faqs.map((faq) => (
+            {faqs.map((faq, index) => (
               <article
                 key={faq.question}
-                className="rounded-[1.35rem] border border-slate-200 bg-white/80 p-5 shadow-[0_18px_40px_rgba(15,23,42,0.05)] backdrop-blur sm:p-6"
+                className="rounded-[1.4rem] border border-slate-200 bg-white/[0.82] p-5 shadow-[0_18px_40px_rgba(15,23,42,0.05)] backdrop-blur sm:p-6"
               >
-                <h3 className="text-lg font-semibold tracking-tight text-slate-950 sm:text-xl">
-                  {faq.question}
-                </h3>
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                      0{index + 1}
+                    </p>
+                    <h3 className="mt-2 text-lg font-semibold tracking-tight text-slate-950 sm:text-xl">
+                      {faq.question}
+                    </h3>
+                  </div>
+                  <span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-amber-400" />
+                </div>
                 <p className="mt-3 text-sm leading-7 text-slate-600 sm:text-base sm:leading-8">
                   {faq.answer}
                 </p>

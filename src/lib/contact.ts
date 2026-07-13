@@ -1,4 +1,5 @@
-export const contactEmail = "marcosfurco22@gmail.com";
+export const contactEmail = "hola@furcode.com.ar";
+export const jobsEmail = "talento@furcode.com.ar";
 
 const normalizeBody = (body: string) => body.replace(/\n/g, "\r\n");
 

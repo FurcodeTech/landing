@@ -41,7 +41,7 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-dvh bg-transparent text-slate-900">
+    <div className="relative min-h-dvh bg-transparent text-slate-900">
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
         <div className="parallax-orb parallax-orb-amber" />
         <div className="parallax-orb parallax-orb-emerald" />

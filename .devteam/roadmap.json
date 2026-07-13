@@ -1,44 +1,45 @@
 {
-  "goal": "Reemplazar la card de Software a medida por una entrada a Nuestros productos que abra un modal accesible con un carrusel preparado para las apps de Furcode.",
-  "status": "completed",
-  "recommendedApproach": "native-offer-modal",
+  "goal": "Publicar en develop todos los cambios nuevos de la landing, incluyendo la documentacion de Vercel Analytics, y comprobar que Analytics, Speed Insights y el nuevo deploy funcionen correctamente.",
+  "status": "approved",
+  "recommendedApproach": "complete-release-and-live-verification",
   "approaches": [
     {
-      "id": "native-offer-modal",
-      "label": "Modal y carrusel nativos dentro de Offer",
-      "tradeoff": "Menor cambio y sin dependencias; deja los productos como datos reutilizables y el carrusel listo para crecer."
+      "id": "complete-release-and-live-verification",
+      "label": "Release completa y verificacion en Vercel",
+      "tradeoff": "Incluye los siete archivos visuales pendientes, la documentacion de Analytics y el checkpoint; valida localmente, pushea develop y comprueba el deploy real. Es la opcion que coincide con que el nuevo deploy tenga todo lo nuevo."
     },
     {
-      "id": "carousel-library",
-      "label": "Agregar una libreria de carrusel",
-      "tradeoff": "Aporta gestos y opciones avanzadas, pero suma peso y complejidad innecesarios mientras existe una sola app."
+      "id": "analytics-only",
+      "label": "Publicar solo documentacion de Analytics",
+      "tradeoff": "Es el cambio minimo, pero dejaria fuera la renovacion visual pendiente y no cumpliria el objetivo de desplegar todo lo nuevo."
     },
     {
-      "id": "global-products-modal",
-      "label": "Modal global a nivel App",
-      "tradeoff": "Facilita abrirlo desde futuras secciones, pero amplía el alcance y acopla estado global antes de necesitarlo."
+      "id": "clean-reinstall-release",
+      "label": "Reinstalacion limpia antes del release",
+      "tradeoff": "Aumenta la certeza sobre dependencias, pero puede detener el preview local y provocar bloqueos EPERM sin aportar valor si npm ls, lint y build ya pasan."
     }
   ],
   "tasks": [
     {
-      "id": "products-card-modal",
-      "title": "Crear la card Nuestros productos y el modal carrusel",
-      "status": "completed",
+      "id": "release-complete-landing-with-vercel-telemetry",
+      "title": "Validar y publicar la landing completa con telemetria Vercel",
+      "status": "in_progress",
       "dependencies": [],
       "acceptanceCriteria": [
-        "La primera card de la oferta dice Nuestros productos y comunica que agrupa las apps de Furcode.",
-        "Toda la card es operable por click y teclado y abre un modal accesible.",
-        "El modal se cierra con boton, click en backdrop y tecla Escape, y bloquea el scroll de fondo.",
-        "El contenido usa una estructura de datos lista para multiples apps y controles de carrusel que no estorban cuando solo hay una.",
-        "Backoffice se muestra en una mini card con miniatura, descripcion breve y una pill Free trial por 2 semanas.",
-        "Al activar la mini card se abre el deploy de Backoffice en una nueva pestaña segura.",
-        "La experiencia es responsive y respeta el estilo cercano y premium existente.",
-        "Lint y build finalizan correctamente."
+        "Analytics y Speed Insights permanecen instalados en package.json y package-lock.json.",
+        "Analytics y Speed Insights se montan una sola vez en src/main.tsx, fuera del contenido de pagina.",
+        "Los siete archivos locales de la renovacion visual y de contacto quedan incluidos en el commit junto con la documentacion de Analytics y el checkpoint DevTeam.",
+        "npm ls confirma las dos dependencias de Vercel sin errores.",
+        "Lint, build y git diff --check finalizan correctamente.",
+        "La revision comprueba que la landing y el modal de productos siguen funcionando.",
+        "El commit se pushea a origin/develop para disparar el deploy.",
+        "El deploy de Vercel termina listo y la URL de produccion responde correctamente.",
+        "La verificacion de produccion encuentra las integraciones de Analytics y Speed Insights cargadas desde el bundle desplegado."
       ],
       "risks": [
-        "El repositorio ya contiene cambios locales sin commit; se limitaran las ediciones a Offer y a los registros de DevTeam.",
-        "La URL del deploy se verificara antes de dejarla como destino definitivo.",
-        "El foco del modal debe gestionarse para no degradar accesibilidad."
+        "El script de Plausible presente en index.html convive con Vercel Analytics y puede duplicar metricas de trafico entre proveedores, aunque no impide el funcionamiento tecnico.",
+        "La validacion de eventos en el dashboard de Vercel puede tener demora; se verificaran integracion y requests de produccion como evidencia inmediata.",
+        "El deploy remoto requiere que la sesion y el proyecto Vercel vinculados sigan disponibles."
       ]
     }
   ]

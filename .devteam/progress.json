@@ -1,36 +1,43 @@
 {
-  "roadmapStatus": "completed",
-  "currentTask": null,
+  "roadmapStatus": "approved",
+  "currentTask": "release-complete-landing-with-vercel-telemetry",
   "tasks": {
-    "products-card-modal": "completed"
+    "release-complete-landing-with-vercel-telemetry": "in_progress"
   },
-  "completedTasks": [
-    "products-card-modal"
-  ],
+  "completedTasks": [],
   "filesChanged": [
-    ".devteam/config.json",
     ".devteam/roadmap.json",
     ".devteam/progress.json",
-    ".devteam/decisions/2026-07-12-products-modal-plan.md",
-    ".devteam/reviews/2026-07-12-products-card-modal.md",
-    ".devteam/runs/2026-07-12-products-card-modal.md",
-    "src/sections/Offer.tsx"
+    ".devteam/decisions/2026-07-12-complete-vercel-release-plan.md",
+    ".devteam/reviews/2026-07-12-complete-vercel-release.md",
+    ".devteam/runs/2026-07-12-complete-vercel-release.md",
+    "docs/superpowers/plans/2026-07-02-vercel-analytics-deploy.md",
+    "src/App.tsx",
+    "src/index.css",
+    "src/lib/contact.ts",
+    "src/sections/About.tsx",
+    "src/sections/Faq.tsx",
+    "src/sections/Footer.tsx",
+    "src/sections/Hero.tsx"
   ],
   "commandsRun": [
-    "Inspeccion de estructura, estado git, Offer.tsx y package.json",
+    "Auditoria de git status, historial y diferencias locales",
+    "Comparacion de src/main.tsx y package.json con origin/develop",
+    "Busqueda de referencias a Analytics, Speed Insights, Vercel y Plausible",
+    "npm.cmd ls @vercel/analytics @vercel/speed-insights",
     "npm.cmd run lint",
     "npm.cmd run build",
     "git diff --check",
-    "Verificacion HTTP de https://backoffice-furcode.vercel.app (200)",
-    "Prueba en navegador desktop y viewport movil 390x844",
-    "Prueba de cierre con Escape, backdrop, bloqueo de scroll y retorno de foco"
+    "Revision de marcadores de Analytics y Speed Insights en el bundle de produccion",
+    "Revision visual desktop y movil; modal y contactos incluidos"
   ],
   "verification": [
-    "ESLint sin errores ni advertencias",
-    "Build TypeScript/Vite exitoso",
-    "Modal accesible verificado en DOM",
-    "Revision visual desktop y movil aprobada",
-    "Destino de Backoffice disponible con HTTP 200"
+    "Analytics y Speed Insights ya estan presentes en origin/develop",
+    "Quedan siete archivos de UI/contacto modificados y un documento de Analytics sin publicar",
+    "Dependencias Vercel resueltas sin errores",
+    "ESLint y build Vite exitosos",
+    "Bundle contiene /_vercel/insights/script.js y /_vercel/speed-insights/script.js",
+    "Ojo aprobo desktop y movil sin hallazgos bloqueantes"
   ],
-  "nextStep": "Tarea finalizada. Agregar nuevos objetos al arreglo products cuando existan mas apps."
+  "nextStep": "Commitear todo el release, pushear develop y verificar el deployment de produccion."
 }

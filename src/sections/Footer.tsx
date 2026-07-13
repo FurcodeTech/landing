@@ -3,6 +3,7 @@ import {
   buildGmailComposeUrl,
   buildOutlookComposeUrl,
   contactEmail,
+  jobsEmail,
   openComposeTab,
 } from "../lib/contact";
 
@@ -61,10 +62,10 @@ export default function Footer() {
   const cvId = useId();
   const jobMessageId = useId();
 
-  const getComposeUrl = (subject: string, body: string) => {
+  const getComposeUrl = (email: string, subject: string, body: string) => {
     return composeProvider === "gmail"
-      ? buildGmailComposeUrl(contactEmail, subject, body)
-      : buildOutlookComposeUrl(contactEmail, subject, body);
+      ? buildGmailComposeUrl(email, subject, body)
+      : buildOutlookComposeUrl(email, subject, body);
   };
 
   const closeModal = () => setActiveModal(null);
@@ -104,7 +105,7 @@ export default function Footer() {
       contactMessage,
     ].join("\n");
 
-    openComposeTab(getComposeUrl(subject, body));
+    openComposeTab(getComposeUrl(contactEmail, subject, body));
     closeModal();
   };
 
@@ -119,14 +120,18 @@ export default function Footer() {
         : "CV pendiente de adjuntar.",
     ].join("\n");
 
-    openComposeTab(getComposeUrl(`Postulacion | ${applicantName}`, body));
+    openComposeTab(getComposeUrl(jobsEmail, `Postulacion | ${applicantName}`, body));
     closeModal();
   };
 
   return (
-    <footer id="contacto" className="bg-[#111111] text-white">
-      <div className="mx-auto flex max-w-6xl flex-col px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
-        <div className="grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-start lg:gap-12">
+    <footer id="contacto" className="relative overflow-hidden bg-[#0f0f10] text-white">
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-56 bg-[radial-gradient(circle_at_top_left,rgba(251,191,36,0.16),transparent_38%),radial-gradient(circle_at_80%_20%,rgba(16,185,129,0.12),transparent_34%)]"
+        aria-hidden="true"
+      />
+      <div className="mx-auto flex max-w-6xl flex-col px-4 py-12 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
+        <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:gap-12">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-300 sm:text-sm">
               Contacto
@@ -135,29 +140,59 @@ export default function Footer() {
               Contanos qué querés ordenar, automatizar o construir.
             </h2>
             <p className="mt-4 max-w-xl text-sm leading-7 text-slate-300 sm:text-base">
-              Te respondemos con una mirada concreta: qué conviene hacer primero,
-              qué puede esperar y cómo avanzar sin sumar complejidad innecesaria.
+              Te respondemos con una mirada concreta: qué conviene hacer primero, qué puede
+              esperar y cómo avanzar sin sumar complejidad innecesaria.
             </p>
 
             <div className="mt-7 grid gap-3 sm:grid-cols-3">
               {contactReasons.map((reason) => (
                 <div
                   key={reason}
-                  className="rounded-[1.1rem] border border-white/10 bg-white/[0.03] p-4 text-sm font-medium text-slate-200"
+                  className="rounded-[1.1rem] border border-white/10 bg-white/[0.035] p-4 text-sm font-medium text-slate-200 shadow-[0_12px_24px_rgba(0,0,0,0.12)]"
                 >
                   <span className="mb-3 block h-2 w-2 rounded-full bg-amber-300" />
                   {reason}
                 </div>
               ))}
             </div>
+
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <a
+                className="inline-flex items-center justify-center rounded-full bg-amber-300 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-[#0f0f10]"
+                href={buildGmailComposeUrl(
+                  contactEmail,
+                  "Consulta para Furcode",
+                  "Hola Furcode,\n\nQuiero contarles un proceso que quiero ordenar y ver si encaja con lo que hacen.\n\nQuedo atento/a.",
+                )}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                Escribir por Gmail
+              </a>
+              <button
+                type="button"
+                onClick={() =>
+                  openComposeTab(
+                    buildOutlookComposeUrl(
+                      contactEmail,
+                      "Consulta para Furcode",
+                      "Hola Furcode,\n\nQuiero contarles un proceso que quiero ordenar y ver si encaja con lo que hacen.\n\nQuedo atento/a.",
+                    ),
+                  )
+                }
+                className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/[0.06] px-5 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-[#0f0f10]"
+              >
+                Escribir por Outlook
+              </button>
+            </div>
           </div>
 
           <div className="space-y-4">
-            <div className="rounded-[1.3rem] border border-white/10 bg-white/[0.03] p-4 sm:p-5">
+            <div className="rounded-[1.45rem] border border-white/10 bg-white/[0.045] p-4 shadow-[0_20px_40px_rgba(0,0,0,0.18)] sm:p-5">
               <p className="text-sm font-semibold text-white">Canales directos</p>
               <div className="mt-4 space-y-3 text-sm">
                 <a
-                  className="block w-full rounded-[1rem] border border-white/10 p-3 text-left font-semibold text-white transition hover:border-amber-300/60 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-[#111111] sm:p-4"
+                  className="block w-full rounded-[1rem] border border-white/10 bg-black/[0.10] p-3 text-left font-semibold text-white transition hover:border-amber-300/60 hover:bg-black/[0.15] focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-[#0f0f10] sm:p-4"
                   href={buildGmailComposeUrl(
                     contactEmail,
                     "Consulta para Furcode",
@@ -172,7 +207,7 @@ export default function Footer() {
                   </span>
                 </a>
                 <button
-                  className="block w-full rounded-[1rem] border border-white/10 p-3 text-left font-semibold text-white transition hover:border-white/25 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-[#111111] sm:p-4"
+                  className="block w-full rounded-[1rem] border border-white/10 bg-black/[0.10] p-3 text-left font-semibold text-white transition hover:border-white/25 hover:bg-black/[0.15] focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-[#0f0f10] sm:p-4"
                   type="button"
                   onClick={() =>
                     openComposeTab(
@@ -189,10 +224,20 @@ export default function Footer() {
                     Abrir en Outlook
                   </span>
                 </button>
+                <button
+                  className="block w-full rounded-[1rem] border border-amber-300/20 bg-amber-300/[0.08] p-3 text-left font-semibold text-amber-100 transition hover:border-amber-300/50 hover:bg-amber-300/[0.12] focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-[#0f0f10] sm:p-4"
+                  type="button"
+                  onClick={() => setActiveModal("jobs")}
+                >
+                  {jobsEmail}
+                  <span className="mt-1 block font-normal text-amber-100/70">
+                    Enviar propuesta laboral
+                  </span>
+                </button>
               </div>
             </div>
 
-            <div className="rounded-[1.3rem] border border-amber-300/25 bg-amber-300/10 p-4 sm:p-5">
+            <div className="rounded-[1.45rem] border border-amber-300/20 bg-amber-300/10 p-4 sm:p-5">
               <p className="text-sm font-semibold text-amber-100">Para avanzar más rápido</p>
               <ul className="mt-4 space-y-3 text-sm text-slate-200">
                 {firstMessage.map((item) => (
@@ -207,7 +252,7 @@ export default function Footer() {
             <button
               type="button"
               onClick={() => setActiveModal("contact")}
-              className="inline-flex w-full items-center justify-center rounded-full bg-amber-300 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-[#111111] sm:w-auto"
+              className="inline-flex w-full items-center justify-center rounded-full bg-amber-300 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-[#0f0f10] sm:w-auto"
             >
               Abrir formulario guiado
             </button>
