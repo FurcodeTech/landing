@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "flow_id": "landing-ecosystem-refresh-2026-07-14",
+  "stage": "taller",
+  "status": "completed",
+  "decisions": [
+    "Implemented product-native hero mockups instead of stock photography",
+    "Added always-visible Backoffice and Turnos product surfaces",
+    "Converted FAQ to semantic details and summary controls",
+    "Kept the existing footer contact forms and compose behavior"
+  ],
+  "boundaries": [
+    "No backend or deployment changes",
+    "No new runtime dependencies",
+    "Turnos inquiry remains mail-driven until a public URL is verified"
+  ],
+  "changed_files": [
+    "src/App.tsx",
+    "src/index.css",
+    "src/sections/Hero.tsx",
+    "src/sections/About.tsx",
+    "src/sections/Offer.tsx",
+    "src/sections/Faq.tsx",
+    "src/sections/Footer.tsx",
+    ".furcodeui/design-profile.json"
+  ],
+  "verification": [
+    "npm.cmd run build",
+    "npm.cmd run lint",
+    "FurcodeUI profile validation"
+  ],
+  "next_stage": "ojo",
+  "residual_risks": [
+    "External email clients were not opened during QA to avoid sending or navigating away from the local test surface"
+  ]
+}

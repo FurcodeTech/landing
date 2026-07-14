@@ -1,54 +1,71 @@
 @import "tailwindcss";
 
 @font-face {
-  font-family: 'Inter';
-  src: url('./assets/fonts/inter/InterVariable.ttf') format('truetype');
+  font-family: "Inter";
+  src: url("./assets/fonts/inter/InterVariable.ttf") format("truetype");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 
-html {
-  scroll-behavior: smooth;
+:root {
+  color-scheme: light;
+  --color-canvas: #f4f0e7;
+  --color-canvas-deep: #e9e1d4;
+  --color-surface: #fffdf8;
+  --color-surface-muted: #eee9df;
+  --color-ink: #1c2721;
+  --color-muted: #5d6b63;
+  --color-line: #d6d2c8;
+  --color-brand: #3f6653;
+  --color-brand-strong: #284838;
+  --color-brand-soft: #dfe9e1;
+  --color-accent: #a66f48;
+  --color-accent-soft: #f1dfd1;
+  --color-night: #17231d;
+  --shadow-lift: 0 22px 60px rgba(28, 39, 33, 0.11);
 }
 
-html,
-body {
+* {
+  box-sizing: border-box;
+}
+
+html {
   min-width: 320px;
-  background-color: #f4efe7;
-  background-image:
-    radial-gradient(circle at top left, rgba(217, 119, 6, 0.14), transparent 24%),
-    radial-gradient(circle at 80% 12%, rgba(15, 23, 42, 0.08), transparent 18%),
-    radial-gradient(circle at bottom right, rgba(16, 185, 129, 0.1), transparent 26%),
-    linear-gradient(180deg, #f8f4ec 0%, #f3ede2 100%);
-  color: #0f172a;
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-    'Helvetica Neue', sans-serif;
+  scroll-behavior: smooth;
+  background: var(--color-canvas);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 8% 2%, rgba(166, 111, 72, 0.13), transparent 24rem),
+    radial-gradient(circle at 92% 16%, rgba(63, 102, 83, 0.13), transparent 26rem),
+    var(--color-canvas);
+  color: var(--color-ink);
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   text-rendering: optimizeLegibility;
-  color-scheme: light;
 }
 
 body::before {
-  content: "";
   position: fixed;
-  inset: 0;
   z-index: -1;
+  inset: 0;
   pointer-events: none;
-  background-image:
-    linear-gradient(rgba(15, 23, 42, 0.018) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 23, 42, 0.018) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.42), rgba(0, 0, 0, 0.12) 45%, transparent 100%);
-  opacity: 0.55;
+  content: "";
+  background-image: linear-gradient(rgba(28, 39, 33, 0.025) 1px, transparent 1px);
+  background-size: 100% 8rem;
+  mask-image: linear-gradient(to bottom, black, transparent 78%);
 }
 
-body {
-  overflow-x: hidden;
-}
-
-#root {
-  min-height: 100dvh;
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }
 
 img,
@@ -58,49 +75,118 @@ canvas {
   max-width: 100%;
 }
 
-.parallax-orb {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(70px);
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
-  opacity: 0.9;
-  transition: transform 160ms linear;
+:where(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid #0b6b4c;
+  outline-offset: 3px;
 }
 
-.parallax-orb-amber {
-  top: -8rem;
-  left: 50%;
-  height: 34rem;
-  width: 34rem;
-  background: rgba(251, 191, 36, 0.28);
-  transform: translate3d(-50%, calc(var(--scroll-y, 0px) * 0.02), 0);
+::selection {
+  background: var(--color-brand-soft);
+  color: var(--color-ink);
 }
 
-.parallax-orb-emerald {
-  right: -8rem;
-  top: 36rem;
-  height: 28rem;
-  width: 28rem;
-  background: rgba(16, 185, 129, 0.22);
-  transform: translate3d(0, calc(var(--scroll-y, 0px) * -0.03), 0);
+.section-shell {
+  width: min(100%, 80rem);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 3vw, 2.5rem);
 }
 
-.parallax-orb-stone {
-  bottom: -10rem;
-  left: -6rem;
-  height: 24rem;
-  width: 24rem;
-  background: rgba(226, 232, 240, 0.9);
-  transform: translate3d(0, calc(var(--scroll-y, 0px) * 0.015), 0);
+.display-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 500;
+  letter-spacing: -0.055em;
 }
 
-.no-scrollbar {
-  scrollbar-width: none;
+.eyebrow {
+  color: var(--color-brand);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
-.no-scrollbar::-webkit-scrollbar {
+.surface {
+  border: 1px solid rgba(28, 39, 33, 0.1);
+  border-radius: 1.5rem;
+  background: rgba(255, 253, 248, 0.84);
+  box-shadow: 0 18px 50px rgba(28, 39, 33, 0.07);
+  backdrop-filter: blur(14px);
+}
+
+.button-primary,
+.button-secondary {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  border-radius: 0.85rem;
+  padding: 0.75rem 1.1rem;
+  font-size: 0.9rem;
+  font-weight: 750;
+  text-decoration: none;
+  transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.button-primary {
+  border: 1px solid var(--color-night);
+  background: var(--color-night);
+  color: white;
+  box-shadow: 0 14px 28px rgba(23, 35, 29, 0.17);
+}
+
+.button-primary:hover {
+  transform: translateY(-1px);
+  background: var(--color-brand-strong);
+  box-shadow: 0 17px 32px rgba(23, 35, 29, 0.22);
+}
+
+.button-secondary {
+  border: 1px solid var(--color-line);
+  background: rgba(255, 253, 248, 0.75);
+  color: var(--color-ink);
+}
+
+.button-secondary:hover {
+  transform: translateY(-1px);
+  border-color: rgba(28, 39, 33, 0.28);
+  background: var(--color-surface);
+}
+
+.app-window {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1.2rem;
+  background: var(--color-surface);
+  box-shadow: 0 24px 70px rgba(4, 11, 7, 0.26);
+}
+
+.app-dot {
+  display: block;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+details > summary {
+  list-style: none;
+}
+
+details > summary::-webkit-details-marker {
   display: none;
+}
+
+details[open] .faq-plus {
+  transform: rotate(45deg);
+}
+
+@media (max-width: 640px) {
+  .button-primary,
+  .button-secondary {
+    width: 100%;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -116,9 +202,4 @@ canvas {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
-}
-
-::selection {
-  background-color: #fde68a;
-  color: #0f172a;
 }

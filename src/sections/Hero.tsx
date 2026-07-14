@@ -1,221 +1,90 @@
 import { buildGmailComposeUrl, contactEmail } from "../lib/contact";
 
-const flowSteps = [
-  {
-    title: "Diagnóstico",
-    description: "Entendemos el negocio, el proceso y dónde está la fricción real.",
-  },
-  {
-    title: "Implementación",
-    description: "Diseñamos una solución clara, mantenible y alineada a tu operación.",
-  },
-  {
-    title: "Mejora continua",
-    description: "Ajustamos con criterio para que el sistema siga siendo útil en el tiempo.",
-  },
-];
-
-const supportPoints = [
-  "Respuesta por mail con foco concreto",
-  "Lenguaje claro, sin humo comercial",
-  "Acompañamiento pensado para equipos reales",
-];
-
-const trustPoints = [
-  {
-    label: "Canal",
-    value: "Mail directo",
-  },
-  {
-    label: "Tono",
-    value: "Claro y preciso",
-  },
-  {
-    label: "Ritmo",
-    value: "Cercano",
-  },
-];
-
-const highlights = ["Software a medida", "Implementación IT", "Academia práctica"];
-
-export default function Hero() {
+function ArrowIcon() {
   return (
-    <section className="relative overflow-hidden bg-[#121212] text-white">
-      <img
-        src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=2200&q=80"
-        alt=""
-        className="absolute inset-0 h-full w-full object-cover object-[45%_center] opacity-36 sm:object-center"
-        style={{
-          transform: "translate3d(0, calc(var(--scroll-y, 0px) * 0.06), 0) scale(1.06)",
-        }}
-        aria-hidden="true"
+    <svg aria-hidden="true" className="size-4" fill="none" viewBox="0 0 24 24">
+      <path
+        d="M5 12h14m-5-5 5 5-5 5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.8"
       />
-      <div
-        className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(251,191,36,0.24),transparent_28%),radial-gradient(circle_at_right,rgba(16,185,129,0.14),transparent_26%),linear-gradient(180deg,rgba(8,8,8,0.58),rgba(8,8,8,0.9))]"
-        style={{
-          transform: "translate3d(0, calc(var(--scroll-y, 0px) * 0.018), 0)",
-        }}
-        aria-hidden="true"
-      />
-      <div
-        className="absolute inset-0 bg-[linear-gradient(115deg,transparent_0%,rgba(255,255,255,0.05)_42%,transparent_60%)] opacity-70"
-        style={{
-          transform: "translate3d(0, calc(var(--scroll-y, 0px) * -0.02), 0)",
-        }}
-        aria-hidden="true"
-      />
+    </svg>
+  );
+}
 
-      <div className="relative z-10 mx-auto flex min-h-dvh max-w-6xl flex-col px-4 pt-4 pb-10 sm:px-6 sm:pt-5 sm:pb-12 lg:px-8 lg:pb-8">
-        <header className="flex items-center justify-between gap-3 border-b border-white/10 pb-4 sm:pb-5">
-          <a href="/" className="flex items-center gap-3" aria-label="Furcode">
-            <img
-              src="/favicon.webp"
-              alt=""
-              className="h-9 w-9 shrink-0 rounded-xl bg-white object-cover p-1 shadow-sm"
-            />
-            <span className="text-sm font-semibold text-white">Furcode</span>
-          </a>
+function EcosystemPreview() {
+  return (
+    <div
+      className="relative overflow-hidden rounded-[2rem] bg-[var(--color-night)] p-3 shadow-[0_34px_90px_rgba(23,35,29,0.24)] sm:p-5"
+      aria-label="Vista conceptual de los productos Backoffice y Turnos de Furcode"
+    >
+      <div className="absolute -right-16 -top-20 size-64 rounded-full bg-[#5f8b72]/25 blur-3xl" />
+      <div className="absolute -bottom-20 -left-16 size-64 rounded-full bg-[#a66f48]/20 blur-3xl" />
 
-          <nav
-            className="hidden items-center gap-6 text-sm font-medium text-slate-300 sm:flex"
-            aria-label="Navegacion principal"
-          >
-            <a className="transition hover:text-white" href="#nosotros">
-              Proceso
-            </a>
-            <a className="transition hover:text-white" href="#oferta">
-              Oferta
-            </a>
-            <a className="transition hover:text-white" href="#contacto">
-              Contacto
-            </a>
-          </nav>
+      <div className="relative flex items-center justify-between border-b border-white/10 px-2 pb-3 text-white sm:px-1 sm:pb-4">
+        <div className="flex items-center gap-2 text-xs font-semibold">
+          <span className="grid size-7 place-items-center rounded-lg bg-white text-[var(--color-night)]">
+            F
+          </span>
+          Furcode / productos
+        </div>
+        <div className="flex items-center gap-2 text-[0.65rem] font-semibold text-[#c4d8ca]">
+          <span className="app-dot text-[#7fc59a]" />
+          Ecosistema activo
+        </div>
+      </div>
 
-          <a
-            href="#contacto"
-            className="inline-flex shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur transition hover:border-amber-200/70 hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-amber-200 focus:ring-offset-2 focus:ring-offset-[#121212]"
-          >
-            Hablemos
-          </a>
-        </header>
-
-        <div className="grid items-start gap-10 pt-10 sm:pt-12 lg:flex-1 lg:grid-cols-[1.04fr_0.96fr] lg:items-center lg:gap-12 lg:pt-0">
-          <div className="pt-0 lg:pt-8">
-            <p className="inline-flex max-w-full items-center gap-2 rounded-full border border-white/12 bg-white/[0.08] px-3 py-2 text-[0.68rem] font-semibold uppercase leading-none text-slate-100 backdrop-blur sm:text-xs">
-              <span className="h-2 w-2 shrink-0 rounded-full bg-amber-300" />
-              Software, implementación y formación
-            </p>
-
-            <h1 className="mt-5 max-w-3xl text-4xl font-semibold leading-[1.02] tracking-tight text-white sm:mt-6 sm:text-5xl lg:text-[4.55rem]">
-              Furcode ordena procesos y convierte ideas en software que la gente realmente adopta.
-            </h1>
-
-            <p className="mt-5 max-w-2xl text-base leading-7 text-slate-200 sm:mt-6 sm:text-lg sm:leading-8">
-              Acompañamos negocios que necesitan una respuesta concreta: menos fricción operativa,
-              más criterio técnico y una marca que se vea tan bien como trabaja.
-            </p>
-
-            <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:items-center">
-              <a
-                href={buildGmailComposeUrl(
-                  contactEmail,
-                  "Consulta para Furcode",
-                  "Hola Furcode,\n\nQuiero contarles un proceso que quiero ordenar y ver si encaja con lo que hacen.\n\nQuedo atento/a.",
-                )}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="inline-flex items-center justify-center rounded-full bg-amber-300 px-5 py-3 text-sm font-semibold text-slate-950 shadow-[0_12px_30px_rgba(251,191,36,0.22)] transition hover:bg-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-[#121212]"
-              >
-                Escribir por mail
-              </a>
-
-              <a
-                href="#nosotros"
-                className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/[0.08] px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:border-white/35 hover:bg-white/[0.12] focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-[#121212]"
-              >
-                Ver cómo trabajamos
-              </a>
-            </div>
-
-            <div className="mt-8 flex flex-wrap gap-2">
-              {highlights.map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-white/12 bg-white/[0.08] px-3 py-1.5 text-xs font-medium text-slate-100 backdrop-blur"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-
-            <ul className="mt-7 grid gap-3 text-sm text-slate-200 sm:mt-8 sm:grid-cols-3">
-              {supportPoints.map((point) => (
-                <li key={point} className="flex gap-3 rounded-[1rem] border border-white/10 bg-white/[0.06] p-3 backdrop-blur">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-300" />
-                  <span className="leading-6">{point}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div
-            className="rounded-[1.9rem] border border-white/12 bg-white/[0.08] p-4 text-white shadow-[0_28px_80px_rgba(0,0,0,0.28)] backdrop-blur-xl sm:p-5 lg:mt-0"
-            aria-label="Sistema de trabajo de Furcode"
-          >
-            <div className="overflow-hidden rounded-[1.35rem] border border-white/10 bg-black/20">
-              <div className="relative h-48 overflow-hidden sm:h-56">
-                <img
-                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1400&q=80"
-                  alt=""
-                  className="h-full w-full object-cover object-center opacity-[0.82]"
-                  aria-hidden="true"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,12,12,0.08),rgba(12,12,12,0.88))]" />
-                <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
-                  <p className="text-xs uppercase tracking-[0.28em] text-slate-300">furcode.system</p>
-                  <p className="mt-2 text-xl font-semibold leading-tight sm:text-2xl">
-                    Un mapa de trabajo claro desde el primer intercambio.
-                  </p>
-                </div>
+      <div className="relative mt-4 grid gap-3 sm:mt-5 sm:grid-cols-[1.15fr_0.85fr]">
+        <div className="app-window min-h-[19rem] sm:min-h-[24rem]">
+          <div className="flex h-full">
+            <div className="w-[26%] bg-[#202824] p-3 text-white sm:p-4">
+              <div className="flex items-center gap-2 text-[0.6rem] font-bold sm:text-xs">
+                <span className="size-5 rounded-md bg-[#d9b99f]" />
+                <span className="hidden lg:inline">Backoffice</span>
               </div>
-
-              <div className="border-t border-white/10 p-4 sm:p-5">
-                <div className="flex items-center justify-between gap-3">
-                  <p className="text-sm font-semibold text-white/90">Disponible para proyectos nuevos</p>
-                  <span className="shrink-0 rounded-full bg-emerald-300 px-2.5 py-1 text-xs font-semibold text-slate-950">
-                    Disponible
-                  </span>
+              <div className="mt-6 space-y-2.5">
+                {["w-full", "w-4/5", "w-3/4", "w-5/6"].map((width, index) => (
+                  <span
+                    key={`${width}-${index}`}
+                    className={`block h-1.5 ${width} rounded-full ${index === 0 ? "bg-white/70" : "bg-white/16"}`}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="flex-1 bg-[#f8f4ed] p-3 sm:p-5">
+              <div className="flex items-start justify-between gap-2">
+                <div>
+                  <span className="block h-2 w-20 rounded-full bg-[#1c2721]" />
+                  <span className="mt-2 block h-1.5 w-12 rounded-full bg-[#a9afa9]" />
                 </div>
-
-                <div className="mt-4 space-y-3">
-                  {flowSteps.map((step, index) => (
-                    <div
-                      key={step.title}
-                      className="grid grid-cols-[2.5rem_1fr] gap-3 rounded-[1.15rem] border border-white/10 bg-black/[0.15] p-3 sm:grid-cols-[2.8rem_1fr] sm:gap-4 sm:p-4"
-                    >
-                      <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-sm font-semibold text-slate-950 sm:h-11 sm:w-11">
-                        {index + 1}
-                      </span>
-                      <div>
-                        <p className="text-sm font-semibold">{step.title}</p>
-                        <p className="mt-1 text-sm leading-6 text-slate-300 sm:max-w-sm">
-                          {step.description}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-4 grid grid-cols-1 gap-3 text-sm sm:mt-5 sm:grid-cols-2">
-                  {trustPoints.map((point) => (
-                    <div
-                      key={point.label}
-                      className="rounded-[1.1rem] border border-white/10 bg-white/[0.04] p-3 sm:p-4"
-                    >
-                      <p className="text-slate-400">{point.label}</p>
-                      <p className="mt-1 font-semibold text-white">{point.value}</p>
-                    </div>
+                <span className="rounded-md bg-[#1c2721] px-2 py-1 text-[0.48rem] font-bold text-white sm:text-[0.58rem]">
+                  Nuevo
+                </span>
+              </div>
+              <div className="mt-5 grid grid-cols-2 gap-2 sm:gap-3">
+                {[
+                  ["#dfe9e1", "#3f6653"],
+                  ["#f1dfd1", "#a66f48"],
+                  ["#e4e8eb", "#315f75"],
+                  ["#eee7d4", "#855613"],
+                ].map(([background, color]) => (
+                  <div key={background} className="rounded-xl p-2.5 sm:p-3" style={{ background }}>
+                    <span className="block h-1.5 w-2/3 rounded-full opacity-40" style={{ background: color }} />
+                    <span className="mt-3 block h-3 w-1/3 rounded-full" style={{ background: color }} />
+                    <span className="mt-1 block h-1 w-1/2 rounded-full opacity-30" style={{ background: color }} />
+                  </div>
+                ))}
+              </div>
+              <div className="mt-3 rounded-xl border border-[#ded9ce] bg-white p-3 sm:mt-4 sm:p-4">
+                <div className="flex items-end gap-1.5">
+                  {[34, 52, 43, 70, 58, 82, 68].map((height, index) => (
+                    <span
+                      key={`${height}-${index}`}
+                      className="flex-1 rounded-t-sm bg-[#3f6653]"
+                      style={{ height: `${height / 2.2}px`, opacity: 0.42 + index * 0.06 }}
+                    />
                   ))}
                 </div>
               </div>
@@ -223,12 +92,121 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="hidden items-center justify-between border-t border-white/10 pt-4 text-xs text-slate-300 lg:flex">
-          <span>Scroll suave y continuo</span>
-          <span className="inline-flex items-center gap-2">
-            <span className="h-px w-8 bg-amber-300" />
-            Siguiente: Nosotros
-          </span>
+        <div className="app-window self-end sm:-ml-10 sm:mt-16">
+          <div className="bg-[#fffdf8] p-4 sm:p-5">
+            <div className="flex items-center justify-between border-b border-[#d6d2c8] pb-3">
+              <div>
+                <p className="text-[0.55rem] font-extrabold uppercase tracking-[0.16em] text-[#3f6653]">
+                  Turnos Furcode
+                </p>
+                <p className="mt-1 font-serif text-lg text-[#1c2721]">Tu agenda</p>
+              </div>
+              <span className="size-8 rounded-lg bg-[#dfe9e1]" />
+            </div>
+            <div className="mt-4 grid grid-cols-7 gap-1 text-center text-[0.48rem] font-bold text-[#5d6b63]">
+              {["L", "M", "X", "J", "V", "S", "D"].map((day) => (
+                <span key={day}>{day}</span>
+              ))}
+              {Array.from({ length: 14 }, (_, index) => (
+                <span
+                  key={index}
+                  className={`grid aspect-square place-items-center rounded-md ${index === 9 ? "bg-[#3f6653] text-white" : "bg-[#f4f0e7]"}`}
+                >
+                  {index + 8}
+                </span>
+              ))}
+            </div>
+            <div className="mt-4 rounded-xl bg-[#dfe9e1] p-3">
+              <div className="flex items-center gap-2">
+                <span className="app-dot text-[#3f6653]" />
+                <span className="text-[0.65rem] font-bold text-[#284838]">Próximo turno · 10:30</span>
+              </div>
+              <span className="mt-2 block h-1.5 w-3/4 rounded-full bg-[#3f6653]/20" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p className="relative mt-4 px-1 text-xs leading-5 text-white/60">
+        Dos productos, un mismo sistema visual: claridad operativa, calidez y foco.
+      </p>
+    </div>
+  );
+}
+
+export default function Hero() {
+  return (
+    <section className="relative overflow-hidden border-b border-[var(--color-line)]">
+      <div className="section-shell">
+        <header className="flex min-h-20 items-center justify-between gap-5 border-b border-[var(--color-line)]">
+          <a href="/" className="flex min-h-11 items-center gap-3" aria-label="Furcode, inicio">
+            <img
+              src="/favicon.webp"
+              alt=""
+              className="size-9 rounded-xl border border-black/5 bg-white p-1 shadow-sm"
+            />
+            <span className="text-sm font-extrabold tracking-[-0.02em]">Furcode</span>
+          </a>
+
+          <nav className="hidden items-center gap-7 text-sm font-semibold text-[var(--color-muted)] md:flex" aria-label="Navegación principal">
+            <a className="transition hover:text-[var(--color-ink)]" href="#ecosistema">Ecosistema</a>
+            <a className="transition hover:text-[var(--color-ink)]" href="#oferta">Qué hacemos</a>
+            <a className="transition hover:text-[var(--color-ink)]" href="#contacto">Contacto</a>
+          </nav>
+
+          <a className="button-secondary !min-h-11 !w-auto !rounded-xl !px-4 !py-2" href="#contacto">
+            Hablemos
+          </a>
+        </header>
+
+        <div className="grid gap-12 py-14 sm:py-16 lg:min-h-[calc(100dvh-5rem)] lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16 lg:py-20">
+          <div className="max-w-2xl">
+            <p className="eyebrow">Tecnología que trabaja con vos</p>
+            <h1 className="display-title mt-5 text-[clamp(3.25rem,7.5vw,6.7rem)] leading-[0.88] text-[var(--color-ink)]">
+              Software claro para negocios reales.
+            </h1>
+            <p className="mt-7 max-w-xl text-base leading-7 text-[var(--color-muted)] sm:text-lg sm:leading-8">
+              Creamos productos e implementaciones que ordenan la operación sin sumar ruido.
+              Backoffice, Turnos y cada solución Furcode comparten el mismo criterio: simple de
+              entender, sólida para crecer.
+            </p>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a
+                className="button-primary"
+                href={buildGmailComposeUrl(
+                  contactEmail,
+                  "Consulta para Furcode",
+                  "Hola Furcode,\n\nQuiero contarles un proceso que quiero ordenar y ver si encaja con lo que hacen.\n\nQuedo atento/a.",
+                )}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                Contanos qué necesitás
+                <ArrowIcon />
+              </a>
+              <a className="button-secondary" href="#ecosistema">
+                Conocer el ecosistema
+              </a>
+            </div>
+
+            <dl className="mt-10 grid divide-y divide-[var(--color-line)] border-y border-[var(--color-line)] sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:py-5">
+              {[
+                ["01", "Productos propios"],
+                ["02", "Implementación"],
+                ["03", "Acompañamiento"],
+              ].map(([value, label]) => (
+                <div key={value} className="grid grid-cols-[3rem_1fr] items-center gap-3 py-3 first:pt-4 last:pb-4 sm:block sm:px-5 sm:py-0 sm:first:pl-0 sm:last:pr-0">
+                  <dt className="font-serif text-2xl text-[var(--color-accent)]">{value}</dt>
+                  <dd className="text-[0.67rem] font-bold uppercase leading-4 tracking-[0.12em] text-[var(--color-muted)] sm:mt-1 sm:text-xs">
+                    {label}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+          <EcosystemPreview />
         </div>
       </div>
     </section>

@@ -5,85 +5,59 @@ const faqs = [
       "Te respondemos con una lectura concreta: qué conviene hacer primero, qué puede esperar y cuál sería el siguiente paso.",
   },
   {
+    question: "¿Puedo empezar por un producto Furcode?",
+    answer:
+      "Sí. Backoffice y Turnos están pensados como puntos de entrada simples. Si tu caso necesita ajustes o una implementación adicional, lo vemos con vos.",
+  },
+  {
     question: "¿Trabajan sobre sistemas que ya tengo instalados?",
     answer:
-      "Sí. La idea no es reemplazar por reemplazar, sino ordenar, integrar y simplificar lo que ya existe para que el equipo trabaje mejor.",
+      "Sí. No reemplazamos por reemplazar: ordenamos, integramos y simplificamos lo que ya existe para que el equipo trabaje mejor.",
   },
   {
     question: "¿Sirve si todavía no sé exactamente qué necesito?",
     answer:
-      "Sí. Justamente el primer paso es bajar la ambigüedad y convertir una necesidad difusa en una propuesta concreta y priorizada.",
+      "Sí. El primer paso es bajar la ambigüedad y convertir una necesidad difusa en una propuesta concreta y priorizada.",
   },
-];
-
-const reasons = [
-  "Criterio técnico sin sobrecomplicar.",
-  "Acompañamiento cercano y respondido por mail.",
-  "Orientado a negocio, no solo a entrega técnica.",
 ];
 
 export default function Faq() {
   return (
-    <section className="bg-transparent">
-      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
-        <div className="grid w-full gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:gap-10">
-          <div className="space-y-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500 sm:text-sm">
-              Preguntas frecuentes
-            </p>
-            <h2 className="text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
-              Lo que suele querer saber alguien antes de escribir.
-            </h2>
-            <p className="max-w-xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
-              Esta sección baja dudas comunes y refuerza por qué Furcode se siente
-              más como un partner de trabajo que como un proveedor genérico.
-            </p>
+    <section className="bg-[var(--color-surface)]/45">
+      <div className="section-shell grid gap-10 py-16 sm:py-20 lg:grid-cols-[0.75fr_1.25fr] lg:gap-20 lg:py-28">
+        <div>
+          <p className="eyebrow">Antes de escribir</p>
+          <h2 className="display-title mt-4 text-4xl leading-none sm:text-5xl">
+            Lo importante, sin letra chica.
+          </h2>
+          <p className="mt-5 max-w-lg text-base leading-7 text-[var(--color-muted)]">
+            Trabajamos como un partner cercano: entendemos el contexto, ordenamos prioridades y
+            proponemos el camino más simple que realmente resuelva.
+          </p>
+          <a className="button-secondary mt-7 sm:w-auto" href="#contacto">
+            Escribir ahora
+          </a>
+        </div>
 
-            <div className="rounded-[1.55rem] border border-slate-200 bg-white/[0.78] p-4 shadow-[0_16px_35px_rgba(15,23,42,0.05)] backdrop-blur sm:p-5">
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
-                Por qué Furcode
+        <div className="border-t border-[var(--color-line)]">
+          {faqs.map((faq, index) => (
+            <details key={faq.question} className="group border-b border-[var(--color-line)]">
+              <summary className="flex cursor-pointer items-start justify-between gap-6 py-6 sm:py-7">
+                <span className="grid gap-3 sm:grid-cols-[3rem_1fr] sm:gap-5">
+                  <span className="font-serif text-lg text-[var(--color-accent)]">0{index + 1}</span>
+                  <span className="font-serif text-xl leading-tight text-[var(--color-ink)] sm:text-2xl">
+                    {faq.question}
+                  </span>
+                </span>
+                <span className="faq-plus mt-0.5 grid size-8 shrink-0 place-items-center rounded-lg border border-[var(--color-line)] bg-[var(--color-surface)] text-xl text-[var(--color-brand-strong)] transition-transform" aria-hidden="true">
+                  +
+                </span>
+              </summary>
+              <p className="max-w-2xl pb-7 pl-0 text-sm leading-7 text-[var(--color-muted)] sm:pl-[5rem] sm:text-base">
+                {faq.answer}
               </p>
-              <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-700">
-                {reasons.map((reason) => (
-                  <li key={reason} className="flex gap-3">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-400" />
-                    <span>{reason}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <a
-              href="#contacto"
-              className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white/70 px-5 py-3 text-sm font-semibold text-slate-950 shadow-[0_12px_28px_rgba(15,23,42,0.05)] transition hover:border-slate-400 hover:bg-white focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-transparent"
-            >
-              Escribir ahora
-            </a>
-          </div>
-
-          <div className="space-y-3">
-            {faqs.map((faq, index) => (
-              <article
-                key={faq.question}
-                className="rounded-[1.4rem] border border-slate-200 bg-white/[0.82] p-5 shadow-[0_18px_40px_rgba(15,23,42,0.05)] backdrop-blur sm:p-6"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-                      0{index + 1}
-                    </p>
-                    <h3 className="mt-2 text-lg font-semibold tracking-tight text-slate-950 sm:text-xl">
-                      {faq.question}
-                    </h3>
-                  </div>
-                  <span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-amber-400" />
-                </div>
-                <p className="mt-3 text-sm leading-7 text-slate-600 sm:text-base sm:leading-8">
-                  {faq.answer}
-                </p>
-              </article>
-            ))}
-          </div>
+            </details>
+          ))}
         </div>
       </div>
     </section>

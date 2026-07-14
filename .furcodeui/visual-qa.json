@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "surface": "Furcode landing ecosystem refresh",
+  "viewports": ["390x844", "768x900", "1440x1000"],
+  "states": {
+    "default": "passed",
+    "loading": "not_applicable",
+    "empty": "not_applicable",
+    "error": "not_applicable",
+    "disabled": "not_applicable",
+    "overflow": "passed"
+  },
+  "checks": {
+    "hierarchy": "passed",
+    "accessibility": "passed",
+    "performance": "passed",
+    "motion_and_detail": "passed",
+    "identity": "passed",
+    "density": "passed",
+    "conversion": "passed"
+  },
+  "findings": [
+    {
+      "severity": "P1",
+      "evidence": "Mobile hero proof labels overlapped and the header CTA inherited full width",
+      "impact": "Reduced readability at 390px",
+      "fix": "Stacked proof rows on mobile and forced a compact 44px header CTA",
+      "status": "fixed"
+    },
+    {
+      "severity": "P2",
+      "evidence": "A decorative Backoffice label exceeded its mock sidebar by 6px at tablet width",
+      "impact": "Minor clipping inside a non-interactive preview",
+      "fix": "Hide the decorative label until the large breakpoint",
+      "status": "fixed"
+    }
+  ],
+  "result": "passed",
+  "residual_risks": [
+    "Gmail and Outlook destinations were inspected as links but not opened during local QA",
+    "Plausible emits its expected localhost-only ignore warning"
+  ]
+}

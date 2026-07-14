@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "style": [
+    "premium",
+    "warm",
+    "friendly"
+  ],
+  "priorities": [
+    "hierarchy",
+    "accessibility",
+    "performance",
+    "motion_and_detail",
+    "identity",
+    "density",
+    "conversion"
+  ],
+  "visual": {
+    "temperature": "warm",
+    "saturation": "low_to_medium",
+    "contrast": "accessible"
+  },
+  "motion": {
+    "policy": "clarity_only",
+    "respect_reduced_motion": true
+  },
+  "stack": {
+    "primary": "react",
+    "supported": [
+      "react",
+      "vue",
+      "angular",
+      "html-css"
+    ],
+    "deep_specialization": [
+      "react",
+      "tailwind",
+      "shadcn"
+    ]
+  },
+  "forbidden_defaults": [
+    "generic_saas_ui",
+    "card_border_shadow_overuse",
+    "raw_shadcn_composition",
+    "ai_purple_gradients",
+    "flat_visual_hierarchy",
+    "missing_responsive_or_ui_states",
+    "decorative_motion",
+    "unnecessary_architecture_rewrite",
+    "invented_content_or_features"
+  ],
+  "non_negotiables": [
+    "accessibility",
+    "performance",
+    "responsive_integrity"
+  ],
+  "explicit_exceptions": [],
+  "references": [
+    "Furcode Backoffice: marfil canvas, dark operational navigation, warm brown accent, editorial display type",
+    "Furcode Turnos: calm marfil surfaces, forest green brand scale, restrained terracotta accents",
+    "Landing role: editorial home for the product ecosystem, not a dashboard clone"
+  ],
+  "updated_at": "2026-07-14T16:14:01+00:00"
+}

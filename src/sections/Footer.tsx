@@ -125,18 +125,18 @@ export default function Footer() {
   };
 
   return (
-    <footer id="contacto" className="relative overflow-hidden bg-[#0f0f10] text-white">
+    <footer id="contacto" className="relative overflow-hidden bg-[var(--color-night)] text-white">
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-56 bg-[radial-gradient(circle_at_top_left,rgba(251,191,36,0.16),transparent_38%),radial-gradient(circle_at_80%_20%,rgba(16,185,129,0.12),transparent_34%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[radial-gradient(circle_at_top_left,rgba(166,111,72,0.24),transparent_42%),radial-gradient(circle_at_80%_20%,rgba(95,139,114,0.18),transparent_38%)]"
         aria-hidden="true"
       />
-      <div className="mx-auto flex max-w-6xl flex-col px-4 py-12 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
+      <div className="section-shell relative flex flex-col py-16 sm:py-20 lg:py-24">
         <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:gap-12">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-300 sm:text-sm">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#d9b99f] sm:text-sm">
               Contacto
             </p>
-            <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
+            <h2 className="display-title mt-3 max-w-2xl text-4xl leading-[0.98] sm:text-5xl lg:text-6xl">
               Contanos qué querés ordenar, automatizar o construir.
             </h2>
             <p className="mt-4 max-w-xl text-sm leading-7 text-slate-300 sm:text-base">

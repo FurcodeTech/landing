@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "flow_id": "landing-ecosystem-refresh-2026-07-14",
+  "stage": "atlas",
+  "status": "completed",
+  "decisions": [
+    "Use an editorial product-ecosystem layout rather than a generic agency landing",
+    "Share Backoffice and Turnos tokens: marfil canvas, forest green, warm terracotta, dark operational chrome",
+    "Replace stock photography with lightweight product-native UI mockups",
+    "Keep mail inquiry as the primary conversion path"
+  ],
+  "boundaries": [
+    "Keep the existing React section ownership",
+    "Preserve branded general and jobs email flows",
+    "Do not change product repositories or backend behavior"
+  ],
+  "changed_files": [],
+  "verification": [],
+  "next_stage": "taller",
+  "residual_risks": [
+    "Turnos has no verified public URL in the local checkout, so its CTA routes to an inquiry email"
+  ]
+}
