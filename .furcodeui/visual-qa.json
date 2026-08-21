@@ -1,9 +1,16 @@
 {
   "schema_version": 1,
-  "surface": "Furcode landing ecosystem refresh",
-  "viewports": ["390x844", "768x900", "1440x1000"],
+  "surface": "Furcode landing Turnos conversion",
+  "delivery_context": {
+    "repository": "FurcodeTech/landing",
+    "context_digest": "33ec8097ffd1f46ee8bd7ede402d580474a9e7a681e3ba3f9a7c39412e3ab50f",
+    "preview": "http://127.0.0.1:4174/"
+  },
+  "viewports": ["320x844", "390x844", "768x900", "1440x900"],
   "states": {
     "default": "passed",
+    "faq_disclosure_pointer": "passed",
+    "keyboard_focus": "partially_verified",
     "loading": "not_applicable",
     "empty": "not_applicable",
     "error": "not_applicable",
@@ -12,32 +19,46 @@
   },
   "checks": {
     "hierarchy": "passed",
-    "accessibility": "passed",
+    "accessibility": "passed_with_residual",
     "performance": "passed",
     "motion_and_detail": "passed",
     "identity": "passed",
     "density": "passed",
     "conversion": "passed"
   },
+  "evidence": {
+    "horizontal_overflow": false,
+    "undersized_visible_targets": 0,
+    "duplicate_ids": 0,
+    "h1_count": 1,
+    "approved_mailto_destinations": [
+      "mailto:contact@furcode.com.ar",
+      "mailto:talent@furcode.com.ar"
+    ],
+    "mobile_height_390": 7431,
+    "mobile_height_baseline_390": 8339,
+    "console_errors_or_warnings": 0
+  },
   "findings": [
     {
-      "severity": "P1",
-      "evidence": "Mobile hero proof labels overlapped and the header CTA inherited full width",
-      "impact": "Reduced readability at 390px",
-      "fix": "Stacked proof rows on mobile and forced a compact 44px header CTA",
-      "status": "fixed"
+      "severity": "P2",
+      "evidence": "The in-app Browser focused the native summary element but did not expose reliable default Enter or Space activation through its synthetic key dispatcher.",
+      "impact": "Pointer disclosure and native details-summary semantics are verified; synthesized keyboard activation is not claimed.",
+      "fix": "Retained the native details-summary control and recorded the harness limitation for a future real-browser assistive-technology pass.",
+      "status": "accepted"
     },
     {
       "severity": "P2",
-      "evidence": "A decorative Backoffice label exceeded its mock sidebar by 6px at tablet width",
-      "impact": "Minor clipping inside a non-interactive preview",
-      "fix": "Hide the decorative label until the large breakpoint",
-      "status": "fixed"
+      "evidence": "The local harness does not open native mail clients or prove inbox receipt.",
+      "impact": "Mailto destinations are exact but external delivery remains unverified.",
+      "fix": "Kept visible contact@furcode.com.ar and talent@furcode.com.ar fallback addresses in the footer.",
+      "status": "accepted"
     }
   ],
   "result": "passed",
+  "blocking_findings": [],
   "residual_risks": [
-    "Gmail and Outlook destinations were inspected as links but not opened during local QA",
-    "Plausible emits its expected localhost-only ignore warning"
+    "Native keyboard activation should be repeated in a real browser or assistive-technology pass if release policy requires interaction proof beyond native semantics.",
+    "Native mail-client handoff, inbox receipt and deployed production behavior remain outside local evidence."
   ]
 }

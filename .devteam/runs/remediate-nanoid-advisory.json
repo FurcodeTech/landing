@@ -1,0 +1,24 @@
+{
+  "commands": [
+    "npm.cmd update nanoid --ignore-scripts --no-audit",
+    "npm.cmd ls nanoid --all",
+    "npm.cmd audit --json",
+    "npm.cmd audit --omit=dev --json"
+  ],
+  "completed_at": "2026-08-21T17:02:00-03:00",
+  "files": [
+    "package-lock.json"
+  ],
+  "outcomes": [
+    "The transitive vite to postcss to nanoid path now resolves nanoid 3.3.18.",
+    "Both full-tree and production-only npm audit reports contain zero known vulnerabilities.",
+    "No package.json range or application dependency was added."
+  ],
+  "residual_risks": [
+    "A clean npm ci and rebuilt dist remain assigned to the final readiness task."
+  ],
+  "schema_version": 3,
+  "started_at": "2026-08-21T16:58:00-03:00",
+  "status": "completed",
+  "task": "remediate-nanoid-advisory"
+}

@@ -1,0 +1,30 @@
+{
+  "commands": [
+    "github-repo-sync repo_preflight.py --fetch",
+    "devteam_state.py bind-delivery",
+    "devteam_state.py validate"
+  ],
+  "completed_at": "2026-08-21T16:51:00-03:00",
+  "files": [
+    ".devteam/config.json",
+    ".devteam/roadmap.json",
+    ".devteam/progress.json",
+    ".devteam/decisions/2026-08-05-direct-email-contract.json",
+    ".devteam/decisions/2026-08-05-preserve-editorial-architecture.json",
+    ".devteam/decisions/2026-08-21-turnos-conversion-focus.json",
+    ".devteam/receipts/2026-08-21-landing-turnos-conversion-prepare.json",
+    ".furcodeui/atlas-handoff.json"
+  ],
+  "outcomes": [
+    "Prepared feat/landing-turnos-conversion from the live develop SHA without changing worktree content.",
+    "Bound the exact schema-v3 prepare receipt to DevTeam delivery context 33ec8097ffd1f46ee8bd7ede402d580474a9e7a681e3ba3f9a7c39412e3ab50f.",
+    "Atlas froze one Turnos-first hierarchy, five ownership boundaries and explicit no-invention constraints."
+  ],
+  "residual_risks": [
+    "FurcodeUI route-ui-work does not expose a Vite surface; the retained Vite readiness capability will own final local evidence."
+  ],
+  "schema_version": 3,
+  "started_at": "2026-08-21T16:45:00-03:00",
+  "status": "completed",
+  "task": "freeze-turnos-conversion-architecture"
+}

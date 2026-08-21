@@ -1,0 +1,29 @@
+{
+  "task": "direct-email-routing",
+  "started_at": "2026-08-05T11:30:00-03:00",
+  "completed_at": "2026-08-05T11:35:00-03:00",
+  "status": "completed",
+  "files": [
+    "src/lib/contact.ts",
+    "src/sections/Hero.tsx",
+    "src/sections/Offer.tsx",
+    "src/sections/Footer.tsx",
+    "index.html"
+  ],
+  "commands": [
+    "npm.cmd run lint",
+    "npm.cmd run build",
+    "Browser DOM smoke for mailto/forms/dialogs",
+    "Search for legacy aliases and Gmail/Outlook composers"
+  ],
+  "outcomes": [
+    "Lint and Vite production build passed.",
+    "DOM exposes four mailto links: three general contact links and one talent link.",
+    "DOM has zero forms, zero dialogs and zero legacy Gmail/Outlook references.",
+    "JS output fell from 236.58 KB to 223.93 KB raw and 69.06 KB gzip."
+  ],
+  "residual_risks": [
+    "Actual alias receipt was not tested because that would require an external email send.",
+    "A visitor without a mailto handler must copy the visible address."
+  ]
+}

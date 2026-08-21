@@ -1,0 +1,14 @@
+{
+  "checks": {
+    "correctness": "The installed tree resolves nanoid 3.3.18, outside the verified vulnerable range.",
+    "performance": "The remediation changes one transitive package resolution and adds no runtime feature.",
+    "regression": "Application manifests and source code were not changed by the remediation.",
+    "resume": "The next task will prove the lock through npm ci before final build and preview smoke.",
+    "verification": "npm audit and npm audit --omit=dev both exit zero with zero findings."
+  },
+  "residual_risk": "Registry findings are point-in-time local evidence and do not prove future advisory state.",
+  "result": "pass",
+  "risk": "medium",
+  "schema_version": 3,
+  "task": "remediate-nanoid-advisory"
+}

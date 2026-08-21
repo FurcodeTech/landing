@@ -1,0 +1,34 @@
+{
+  "task": "optimize-delivery-security-seo",
+  "started_at": "2026-08-05T12:02:00-03:00",
+  "completed_at": "2026-08-05T12:18:00-03:00",
+  "status": "completed",
+  "files": [
+    "src/index.css",
+    "src/assets/fonts/inter/InterVariable.ttf",
+    "src/assets/fonts/inter/InterVariable-latin-core.woff2",
+    "index.html",
+    "public/og-furcode.svg",
+    "vercel.json"
+  ],
+  "commands": [
+    "fontTools subset InterVariable.ttf to InterVariable-latin-core.woff2",
+    "npm.cmd run lint",
+    "npm.cmd run build",
+    "vercel.json ConvertFrom-Json validation",
+    "dist CSP hash and asset inspection",
+    "font cmap glyph coverage check",
+    "git diff --check"
+  ],
+  "outcomes": [
+    "Replaced the 874.71 KB TTF with a 47.82 KB Latin WOFF2 while retaining every non-ASCII codepoint used by the page.",
+    "Removed Plausible and kept the Vercel Analytics and Speed Insights React integrations as the only observability path.",
+    "Added security headers, a hash-based CSP compatible with the inline JSON-LD, immutable hashed-asset caching and a permanent www-to-apex redirect.",
+    "Updated commercial Open Graph, Twitter and Organization metadata and added a 1200x630 SVG social card.",
+    "Production build passed with 69.14 KB gzip JS and 47.82 KB font output."
+  ],
+  "residual_risks": [
+    "Vercel headers and redirect require deployed-host verification; no deployment was performed.",
+    "Social crawlers should be checked against the SVG card after deployment because local build cannot prove provider previews."
+  ]
+}

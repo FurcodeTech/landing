@@ -1,0 +1,14 @@
+{
+  "checks": {
+    "correctness": "The implementation matches the approved Turnos-first hierarchy and exact direct-email contract.",
+    "performance": "No new runtime dependency or heavy media asset was introduced; the production build remains compact.",
+    "regression": "Lint, TypeScript/Vite build and diff whitespace validation pass; unrelated preserved paths were not edited.",
+    "resume": "Taller evidence is persisted in .furcodeui/taller-handoff.json and the next task owns the known nanoid advisory.",
+    "verification": "Desktop and mobile browser review found coherent hierarchy and zero horizontal overflow."
+  },
+  "residual_risk": "Production behavior, native mail-client handoff and inbox receipt remain outside local evidence.",
+  "result": "pass",
+  "risk": "medium",
+  "schema_version": 3,
+  "task": "implement-turnos-conversion"
+}

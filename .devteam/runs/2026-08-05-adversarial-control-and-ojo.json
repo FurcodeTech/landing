@@ -1,0 +1,32 @@
+{
+  "task": "adversarial-control-and-ojo",
+  "started_at": "2026-08-05T12:19:00-03:00",
+  "completed_at": "2026-08-05T12:29:00-03:00",
+  "status": "completed",
+  "files": [
+    ".furcodeui/visual-qa.json",
+    ".furcodeui/taller-handoff.json"
+  ],
+  "commands": [
+    "npm.cmd run lint",
+    "npm.cmd run build",
+    "npm.cmd audit --json",
+    "npm.cmd audit --omit=dev --json",
+    "git diff --check",
+    "DevTeam state validation",
+    "Browser DOM smoke at 320x844, 390x844, 768x900 and 1440x900",
+    "Browser desktop and mobile screenshot review",
+    "stale-reference and font-output checks"
+  ],
+  "outcomes": [
+    "All target widths have no body horizontal overflow and no visible interactive target below 44px.",
+    "Main, navigation and footer landmarks are present once; labelled sections and skip navigation are present.",
+    "Four mailto channels render, forms and dialogs are absent, Plausible and legacy provider references are absent.",
+    "Desktop and mobile screenshots preserve the editorial hierarchy, product mockup identity and compact conversion flow.",
+    "Lint, build, full audit, production audit, font-output check and DevTeam validation pass; final JS is 69.13 KB gzip."
+  ],
+  "residual_risks": [
+    "Native mail client behavior and actual inbox receipt remain external checks.",
+    "Deployed CSP, headers, redirect and social preview fetching remain external checks."
+  ]
+}

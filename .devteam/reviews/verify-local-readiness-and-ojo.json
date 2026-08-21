@@ -1,0 +1,14 @@
+{
+  "checks": {
+    "correctness": "The clean production build renders the approved Turnos-first experience with exact mailto destinations.",
+    "performance": "The verified dist is 311884 bytes across eight files and introduces no new application dependency.",
+    "regression": "Clean install, lint, build, audits, whitespace validation, responsive smoke and console checks all pass.",
+    "resume": "Readiness and visual evidence are persisted in .furcodeui and DevTeam can close the bounded local roadmap.",
+    "verification": "Ojo found no blocking visual, responsive, hierarchy, density or conversion finding at the four approved widths."
+  },
+  "residual_risk": "Real assistive-technology keyboard behavior, native mail delivery and deployed-host behavior are intentionally unverified.",
+  "result": "pass",
+  "risk": "medium",
+  "schema_version": 3,
+  "task": "verify-local-readiness-and-ojo"
+}

@@ -1,0 +1,35 @@
+{
+  "commands": [
+    "npm.cmd run lint",
+    "npm.cmd run build",
+    "git diff --check",
+    "Browser review at 1440x900 and 390x844"
+  ],
+  "completed_at": "2026-08-21T16:58:00-03:00",
+  "files": [
+    "index.html",
+    "src/App.tsx",
+    "src/components/ArrowIcon.tsx",
+    "src/index.css",
+    "src/sections/About.tsx",
+    "src/sections/Faq.tsx",
+    "src/sections/Footer.tsx",
+    "src/sections/Hero.tsx",
+    "src/sections/Offer.tsx",
+    "src/sections/Turnos.tsx",
+    ".furcodeui/taller-handoff.json"
+  ],
+  "outcomes": [
+    "Turnos now owns the hero, first proof, objection handling and primary contact path.",
+    "Backoffice and services were compressed into a secondary ecosystem without removing their existing path.",
+    "The 390px layout has no horizontal overflow and is 908px shorter than the pre-change baseline.",
+    "All contact actions remain native mailto destinations limited to the approved general and talent addresses."
+  ],
+  "residual_risks": [
+    "Clean-install, dependency and production-preview evidence remain assigned to the following tasks."
+  ],
+  "schema_version": 3,
+  "started_at": "2026-08-21T16:51:00-03:00",
+  "status": "completed",
+  "task": "implement-turnos-conversion"
+}

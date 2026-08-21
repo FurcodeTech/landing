@@ -1,53 +1,14 @@
 {
-  "roadmapStatus": "completed",
-  "currentTask": null,
-  "tasks": {
-    "release-complete-landing-with-vercel-telemetry": "completed"
-  },
-  "completedTasks": [
-    "release-complete-landing-with-vercel-telemetry"
+  "completed_tasks": [
+    "freeze-turnos-conversion-architecture",
+    "implement-turnos-conversion",
+    "remediate-nanoid-advisory",
+    "verify-local-readiness-and-ojo"
   ],
-  "filesChanged": [
-    ".devteam/roadmap.json",
-    ".devteam/progress.json",
-    ".devteam/decisions/2026-07-12-complete-vercel-release-plan.md",
-    ".devteam/reviews/2026-07-12-complete-vercel-release.md",
-    ".devteam/runs/2026-07-12-complete-vercel-release.md",
-    "docs/superpowers/plans/2026-07-02-vercel-analytics-deploy.md",
-    "src/App.tsx",
-    "src/index.css",
-    "src/lib/contact.ts",
-    "src/sections/About.tsx",
-    "src/sections/Faq.tsx",
-    "src/sections/Footer.tsx",
-    "src/sections/Hero.tsx"
-  ],
-  "commandsRun": [
-    "Auditoria de git status, historial y diferencias locales",
-    "Comparacion de src/main.tsx y package.json con origin/develop",
-    "Busqueda de referencias a Analytics, Speed Insights, Vercel y Plausible",
-    "npm.cmd ls @vercel/analytics @vercel/speed-insights",
-    "npm.cmd run lint",
-    "npm.cmd run build",
-    "git diff --check",
-    "Revision de marcadores de Analytics y Speed Insights en el bundle de produccion",
-    "Revision visual desktop y movil; modal y contactos incluidos",
-    "git push -u origin develop (commit 462160d)",
-    "vercel deploy --prod --yes",
-    "Verificacion HTTP de pagina y scripts de telemetria",
-    "Verificacion DOM de un script Analytics y un script Speed Insights"
-  ],
-  "verification": [
-    "Analytics y Speed Insights ya estan presentes en origin/develop",
-    "Quedan siete archivos de UI/contacto modificados y un documento de Analytics sin publicar",
-    "Dependencias Vercel resueltas sin errores",
-    "ESLint y build Vite exitosos",
-    "Bundle contiene /_vercel/insights/script.js y /_vercel/speed-insights/script.js",
-    "Ojo aprobo desktop y movil sin hallazgos bloqueantes",
-    "Deployment dpl_G4T4ttBeX2YHXcP9HELyiWDYHbci Ready en produccion",
-    "https://furcode.com.ar responde 200",
-    "Los endpoints /_vercel/insights/script.js y /_vercel/speed-insights/script.js responden 200",
-    "Produccion inyecta exactamente un script de Analytics y uno de Speed Insights"
-  ],
-  "nextStep": "Mision finalizada. Revisar datos en los dashboards de Vercel cuando acumulen trafico real."
+  "current_task": null,
+  "last_transition_reason": "Begin clean-install, production build, dedicated-preview and Ojo verification.",
+  "next_step": "",
+  "roadmap_id": "furcode-landing-turnos-conversion-20260821",
+  "schema_version": 3,
+  "status": "completed"
 }

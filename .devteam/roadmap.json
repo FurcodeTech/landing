@@ -1,46 +1,92 @@
 {
-  "goal": "Publicar en develop todos los cambios nuevos de la landing, incluyendo la documentacion de Vercel Analytics, y comprobar que Analytics, Speed Insights y el nuevo deploy funcionen correctamente.",
+  "goal": "Refinar la landing local pendiente para convertir Turnos en la propuesta comercial principal, acortar el recorrido, preservar la identidad cálida y los dos correos nativos, corregir la vulnerabilidad transitiva actual y dejar evidencia local completa sin publicar.",
+  "recommended_approach": "turnos-conversion-first",
+  "roadmap_id": "furcode-landing-turnos-conversion-20260821",
+  "schema_version": 3,
+  "scope": {
+    "excluded": [
+      "Métricas, testimonios, cupos, precios o capacidades no confirmadas",
+      "Formularios, modales, selector de proveedor, asunto o cuerpo prefabricado",
+      "Commit, push, pull request, deploy o mutación de proveedor",
+      "Cambios en otros repositorios o productos"
+    ],
+    "included": [
+      "Jerarquía, copy, composición y responsive de la SPA Vite existente",
+      "Turnos como producto principal y Backoffice, servicios y academia como oferta secundaria",
+      "contact@furcode.com.ar y talent@furcode.com.ar mediante mailto nativo",
+      "Remediación acotada del advisory transitivo de nanoid",
+      "Evidencia DevTeam, Atlas, Taller, Ojo y readiness local"
+    ]
+  },
   "status": "completed",
-  "recommendedApproach": "complete-release-and-live-verification",
-  "approaches": [
-    {
-      "id": "complete-release-and-live-verification",
-      "label": "Release completa y verificacion en Vercel",
-      "tradeoff": "Incluye los siete archivos visuales pendientes, la documentacion de Analytics y el checkpoint; valida localmente, pushea develop y comprueba el deploy real. Es la opcion que coincide con que el nuevo deploy tenga todo lo nuevo."
-    },
-    {
-      "id": "analytics-only",
-      "label": "Publicar solo documentacion de Analytics",
-      "tradeoff": "Es el cambio minimo, pero dejaria fuera la renovacion visual pendiente y no cumpliria el objetivo de desplegar todo lo nuevo."
-    },
-    {
-      "id": "clean-reinstall-release",
-      "label": "Reinstalacion limpia antes del release",
-      "tradeoff": "Aumenta la certeza sobre dependencias, pero puede detener el preview local y provocar bloqueos EPERM sin aportar valor si npm ls, lint y build ya pasan."
-    }
-  ],
   "tasks": [
     {
-      "id": "release-complete-landing-with-vercel-telemetry",
-      "title": "Validar y publicar la landing completa con telemetria Vercel",
-      "status": "completed",
-      "dependencies": [],
-      "acceptanceCriteria": [
-        "Analytics y Speed Insights permanecen instalados en package.json y package-lock.json.",
-        "Analytics y Speed Insights se montan una sola vez en src/main.tsx, fuera del contenido de pagina.",
-        "Los siete archivos locales de la renovacion visual y de contacto quedan incluidos en el commit junto con la documentacion de Analytics y el checkpoint DevTeam.",
-        "npm ls confirma las dos dependencias de Vercel sin errores.",
-        "Lint, build y git diff --check finalizan correctamente.",
-        "La revision comprueba que la landing y el modal de productos siguen funcionando.",
-        "El commit se pushea a origin/develop para disparar el deploy.",
-        "El deploy de Vercel termina listo y la URL de produccion responde correctamente.",
-        "La verificacion de produccion encuentra las integraciones de Analytics y Speed Insights cargadas desde el bundle desplegado."
+      "acceptance": [
+        "T01-A01: Atlas define una sola tesis de layout con Turnos como acción primaria.",
+        "T01-A02: El alcance preserva la arquitectura React por secciones y los correos directos.",
+        "T01-A03: No se inventan cupos, precios, testimonios, métricas ni disponibilidad comercial."
       ],
+      "depends_on": [],
+      "id": "freeze-turnos-conversion-architecture",
       "risks": [
-        "El script de Plausible presente en index.html convive con Vercel Analytics y puede duplicar metricas de trafico entre proveedores, aunque no impide el funcionamiento tecnico.",
-        "La validacion de eventos en el dashboard de Vercel puede tener demora; se verificaran integracion y requests de produccion como evidencia inmediata.",
-        "El deploy remoto requiere que la sesion y el proyecto Vercel vinculados sigan disponibles."
-      ]
+        "El foco comercial de Turnos puede cambiar en el futuro; esta decisión queda limitada al batch aprobado."
+      ],
+      "status": "completed",
+      "title": "Congelar la arquitectura y jerarquía conversion-first"
+    },
+    {
+      "acceptance": [
+        "T02-A01: El hero comunica el problema de agenda y presenta Turnos como propuesta principal con mailto general.",
+        "T02-A02: La prueba visual y beneficios de Turnos aparecen antes que la oferta secundaria.",
+        "T02-A03: Backoffice, servicios y academia conservan presencia con menor peso visual.",
+        "T02-A04: La página reduce repetición y altura móvil sin perder FAQ, contacto ni talento.",
+        "T02-A05: Semántica, foco, targets, reduced motion y overflow permanecen correctos."
+      ],
+      "depends_on": [
+        "freeze-turnos-conversion-architecture"
+      ],
+      "id": "implement-turnos-conversion",
+      "risks": [
+        "Un recorte excesivo puede debilitar la percepción de ecosistema; se conserva una sección secundaria compacta.",
+        "Mailto depende de un cliente configurado; las direcciones permanecen visibles."
+      ],
+      "status": "completed",
+      "title": "Implementar la landing corta y enfocada en Turnos"
+    },
+    {
+      "acceptance": [
+        "T03-A01: nanoid queda resuelto en una versión no afectada sin ampliar majors de producto.",
+        "T03-A02: npm ls no reporta peers inválidos y audit completo y de producción quedan en cero.",
+        "T03-A03: El cambio queda limitado al lockfile salvo necesidad demostrada."
+      ],
+      "depends_on": [
+        "freeze-turnos-conversion-architecture"
+      ],
+      "id": "remediate-nanoid-advisory",
+      "risks": [
+        "La resolución transitiva puede cambiar el árbol de build; se repiten instalación, lint y build."
+      ],
+      "status": "completed",
+      "title": "Remediar el advisory transitivo de nanoid"
+    },
+    {
+      "acceptance": [
+        "T04-A01: npm ci, lint, build, audit, git diff --check y verify-dist pasan.",
+        "T04-A02: La build de producción corre en un puerto dedicado sin reutilizar el servidor Vite de desarrollo.",
+        "T04-A03: Ojo no encuentra P0 ni P1 en 320, 390, 768 y 1440 px.",
+        "T04-A04: No hay overflow horizontal, targets menores a 44 px, errores de consola ni pérdida de los dos destinos de correo.",
+        "T04-A05: Producción, recepción real de correo y publicación permanecen expresamente no verificadas."
+      ],
+      "depends_on": [
+        "implement-turnos-conversion",
+        "remediate-nanoid-advisory"
+      ],
+      "id": "verify-local-readiness-and-ojo",
+      "risks": [
+        "La recepción de aliases y el comportamiento de headers requieren pruebas externas fuera de este batch."
+      ],
+      "status": "completed",
+      "title": "Cerrar readiness local y QA Ojo"
     }
   ]
 }

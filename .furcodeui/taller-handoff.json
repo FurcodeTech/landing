@@ -1,36 +1,54 @@
 {
   "schema_version": 1,
-  "flow_id": "landing-ecosystem-refresh-2026-07-14",
+  "flow_id": "landing-turnos-conversion-2026-08-21",
   "stage": "taller",
   "status": "completed",
+  "delivery_context": {
+    "orchestration_owner": "codex-devteam:codex-devteam-orchestrator",
+    "publication_owner": "furcode-github-ops:furcode-github-ops",
+    "repository": "FurcodeTech/landing",
+    "context_digest": "33ec8097ffd1f46ee8bd7ede402d580474a9e7a681e3ba3f9a7c39412e3ab50f",
+    "prepare_receipt_reference": ".devteam/receipts/2026-08-21-landing-turnos-conversion-prepare.json"
+  },
   "decisions": [
-    "Implemented product-native hero mockups instead of stock photography",
-    "Added always-visible Backoffice and Turnos product surfaces",
-    "Converted FAQ to semantic details and summary controls",
-    "Kept the existing footer contact forms and compose behavior"
+    "Turnos owns the primary promise, first proof and principal conversion path.",
+    "The page keeps the existing warm editorial language while reducing repeated brand exposition and decorative height.",
+    "Backoffice, implementation, custom software and academy remain available as a compact secondary ecosystem.",
+    "Every contact action remains a native mailto with a visible contact@furcode.com.ar or talent@furcode.com.ar fallback."
   ],
   "boundaries": [
-    "No backend or deployment changes",
-    "No new runtime dependencies",
-    "Turnos inquiry remains mail-driven until a public URL is verified"
+    "No form, modal, provider selector, prefilled message, CV upload, backend or analytics change.",
+    "No unverified pricing, pilot capacity, availability, customer metric, testimonial or launch-date claim.",
+    "No deployment, provider, DNS, commit, push or pull-request mutation."
   ],
   "changed_files": [
+    "index.html",
     "src/App.tsx",
+    "src/components/ArrowIcon.tsx",
     "src/index.css",
-    "src/sections/Hero.tsx",
     "src/sections/About.tsx",
-    "src/sections/Offer.tsx",
     "src/sections/Faq.tsx",
     "src/sections/Footer.tsx",
-    ".furcodeui/design-profile.json"
+    "src/sections/Hero.tsx",
+    "src/sections/Offer.tsx",
+    "src/sections/Turnos.tsx",
+    ".furcodeui/taller-handoff.json"
   ],
   "verification": [
-    "npm.cmd run build",
-    "npm.cmd run lint",
-    "FurcodeUI profile validation"
+    "npm.cmd run lint passed after implementation.",
+    "npm.cmd run build passed after implementation.",
+    "git diff --check passed; only existing line-ending notices were reported.",
+    "Browser review at 1440x900 and 390x844 found no horizontal overflow.",
+    "At 390x844 the document height is 7431px, reduced from the 8339px pre-change baseline."
   ],
   "next_stage": "ojo",
   "residual_risks": [
-    "External email clients were not opened during QA to avoid sending or navigating away from the local test surface"
+    "Dependency audit and clean-install release checks are owned by the remaining readiness tasks.",
+    "Native mail-client handoff, inbox receipt and production behavior remain outside local UI evidence."
+  ],
+  "not_verified": [
+    "Production deployment or provider configuration.",
+    "External email delivery.",
+    "Commercial pilot availability, pricing or capacity."
   ]
 }
