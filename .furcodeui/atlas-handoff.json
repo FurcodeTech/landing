@@ -1,23 +1,55 @@
 {
   "schema_version": 1,
-  "flow_id": "landing-ecosystem-refresh-2026-07-14",
+  "flow_id": "landing-turnos-conversion-2026-08-21",
   "stage": "atlas",
   "status": "completed",
+  "delivery_context": {
+    "orchestration_owner": "codex-devteam:codex-devteam-orchestrator",
+    "publication_owner": "furcode-github-ops:furcode-github-ops",
+    "repository": "FurcodeTech/landing",
+    "context_digest": "33ec8097ffd1f46ee8bd7ede402d580474a9e7a681e3ba3f9a7c39412e3ab50f",
+    "prepare_receipt_reference": ".devteam/receipts/2026-08-21-landing-turnos-conversion-prepare.json"
+  },
   "decisions": [
-    "Use an editorial product-ecosystem layout rather than a generic agency landing",
-    "Share Backoffice and Turnos tokens: marfil canvas, forest green, warm terracotta, dark operational chrome",
-    "Replace stock photography with lightweight product-native UI mockups",
-    "Keep mail inquiry as the primary conversion path"
+    "Lead with the concrete agenda and reservation problem; Turnos owns the hero and first product section.",
+    "Preserve the warm editorial system, React section ownership, native mailto contract and visible email fallbacks.",
+    "Compress Backoffice, services and academy into a secondary ecosystem; remove repeated brand exposition before adding detail."
   ],
   "boundaries": [
-    "Keep the existing React section ownership",
-    "Preserve branded general and jobs email flows",
-    "Do not change product repositories or backend behavior"
+    "Hero owns navigation, the primary Turnos promise, one general-email CTA, one in-page CTA and the first product proof.",
+    "Turnos owns benefits, the daily-agenda visual and a pilot-founder inquiry without unconfirmed availability claims.",
+    "About owns a compact three-step working method and no separate brand-manifesto canvas.",
+    "Offer owns Backoffice plus implementation, custom software and academy as secondary paths.",
+    "Faq and Footer own objection handling and the two visible direct email destinations; no form or provider selector."
   ],
-  "changed_files": [],
-  "verification": [],
+  "states": [
+    "The landing is static and has no loading, empty, submit-disabled or success state.",
+    "Mailto links expose visible fallback addresses because native-client availability is outside application control.",
+    "All layouts must reflow from 320px through wide desktop without horizontal overflow or decorative dead space."
+  ],
+  "changed_files": [
+    ".devteam/config.json",
+    ".devteam/roadmap.json",
+    ".devteam/progress.json",
+    ".devteam/decisions/2026-08-05-direct-email-contract.json",
+    ".devteam/decisions/2026-08-05-preserve-editorial-architecture.json",
+    ".devteam/decisions/2026-08-21-turnos-conversion-focus.json",
+    ".devteam/receipts/2026-08-21-landing-turnos-conversion-prepare.json",
+    ".furcodeui/atlas-handoff.json"
+  ],
+  "verification": [
+    "DevTeam schema v3 state validates with the schema-v3 prepare receipt bound to FurcodeTech/landing.",
+    "Live repository owner, develop base and prepared local branch were rechecked before the first write.",
+    "Existing local render was inspected at 390x844 and wide desktop with zero horizontal overflow and no sub-44px targets."
+  ],
   "next_stage": "taller",
   "residual_risks": [
-    "Turnos has no verified public URL in the local checkout, so its CTA routes to an inquiry email"
+    "The formal FurcodeUI router has no Vite surface, so implementation uses the direct React Taller doctrine and the retained Vite readiness capability.",
+    "Turnos commercial availability, pricing, pilot capacity and real inbox delivery remain outside local evidence."
+  ],
+  "not_verified": [
+    "Production behavior and provider configuration.",
+    "Native mail-client handoff and external email receipt.",
+    "Any claim about open pilot slots, price or launch date."
   ]
 }

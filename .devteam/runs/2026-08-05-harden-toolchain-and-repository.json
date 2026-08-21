@@ -1,0 +1,44 @@
+{
+  "task": "harden-toolchain-and-repository",
+  "started_at": "2026-08-05T11:48:00-03:00",
+  "completed_at": "2026-08-05T11:56:00-03:00",
+  "status": "completed",
+  "files": [
+    "package.json",
+    "package-lock.json",
+    ".gitignore",
+    "README.md",
+    ".github/workflows/quality.yml",
+    ".npmrc",
+    "tailwind.config.ts",
+    ".desktop-preview-2.png",
+    ".desktop-preview-3.png",
+    ".mobile-preview.png",
+    ".mobile-preview-2.png",
+    ".mobile-preview-3.png",
+    ".preview-home.png",
+    ".preview-home-2.png",
+    ".preview-home-3.png",
+    ".preview-home-4.png",
+    ".preview-home-5.png"
+  ],
+  "commands": [
+    "npm.cmd ci --ignore-scripts --no-audit",
+    "npm.cmd ls --depth=0",
+    "npm.cmd audit --json",
+    "npm.cmd audit --omit=dev --json",
+    "npm.cmd run lint",
+    "npm.cmd run build",
+    "git diff --check"
+  ],
+  "outcomes": [
+    "Removed the legacy-peer-deps override, unused Tailwind v3 config and tracked root preview captures.",
+    "Updated the lockfile to current compatible toolchain versions and added a reproducible GitHub quality workflow.",
+    "Clean npm ci, lint and production build passed; full and production-only audits report zero vulnerabilities.",
+    "README now reflects Vercel delivery and the two direct Furcode mail aliases."
+  ],
+  "residual_risks": [
+    "CI execution is configured but not run in GitHub from this local checkout.",
+    "The root preview captures were removed from the working tree and remain recoverable from Git history."
+  ]
+}

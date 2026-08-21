@@ -1,49 +1,50 @@
+import { buildMailtoUrl, contactEmail } from "../lib/contact";
+
 const faqs = [
   {
-    question: "¿Qué pasa después de que mando el mail?",
+    question: "¿Para quién está pensado Turnos?",
     answer:
-      "Te respondemos con una lectura concreta: qué conviene hacer primero, qué puede esperar y cuál sería el siguiente paso.",
+      "Para profesionales independientes y consultorios que necesitan ordenar reservas, clientes y agenda diaria sin sumar complejidad.",
   },
   {
-    question: "¿Puedo empezar por un producto Furcode?",
+    question: "¿Qué incluye la propuesta que muestra la landing?",
     answer:
-      "Sí. Backoffice y Turnos están pensados como puntos de entrada simples. Si tu caso necesita ajustes o una implementación adicional, lo vemos con vos.",
+      "Reservas online, gestión de clientes y una agenda diaria clara. Escribinos para conocer el alcance actual antes de avanzar.",
   },
   {
-    question: "¿Trabajan sobre sistemas que ya tengo instalados?",
+    question: "¿Cómo consulto por el piloto fundador?",
     answer:
-      "Sí. No reemplazamos por reemplazar: ordenamos, integramos y simplificamos lo que ya existe para que el equipo trabaje mejor.",
+      "Mandanos un mail a contact@furcode.com.ar. Te contamos el alcance disponible y los próximos pasos para evaluar Turnos en tu operación real.",
   },
   {
-    question: "¿Sirve si todavía no sé exactamente qué necesito?",
+    question: "¿También trabajan en otras soluciones?",
     answer:
-      "Sí. El primer paso es bajar la ambigüedad y convertir una necesidad difusa en una propuesta concreta y priorizada.",
+      "Sí. Furcode también desarrolla Backoffice, implementaciones IT, software a medida y formación práctica para equipos.",
   },
 ];
 
 export default function Faq() {
   return (
-    <section className="bg-[var(--color-surface)]/45">
-      <div className="section-shell grid gap-10 py-16 sm:py-20 lg:grid-cols-[0.75fr_1.25fr] lg:gap-20 lg:py-28">
+    <section id="preguntas" aria-labelledby="preguntas-title" className="bg-[var(--color-surface)]/45">
+      <div className="section-shell grid gap-9 py-16 sm:py-20 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20 lg:py-24">
         <div>
           <p className="eyebrow">Antes de escribir</p>
-          <h2 className="display-title mt-4 text-4xl leading-none sm:text-5xl">
-            Lo importante, sin letra chica.
+          <h2 id="preguntas-title" className="display-title mt-4 text-4xl leading-none sm:text-5xl">
+            Lo importante, sin vueltas.
           </h2>
           <p className="mt-5 max-w-lg text-base leading-7 text-[var(--color-muted)]">
-            Trabajamos como un partner cercano: entendemos el contexto, ordenamos prioridades y
-            proponemos el camino más simple que realmente resuelva.
+            Empezamos por entender tu agenda y te respondemos con un próximo paso concreto.
           </p>
-          <a className="button-secondary mt-7 sm:w-auto" href="#contacto">
-            Escribir ahora
+          <a className="button-secondary mt-7 sm:w-auto" href={buildMailtoUrl(contactEmail)}>
+            Consultar por Turnos
           </a>
         </div>
 
         <div className="border-t border-[var(--color-line)]">
           {faqs.map((faq, index) => (
             <details key={faq.question} className="group border-b border-[var(--color-line)]">
-              <summary className="flex cursor-pointer items-start justify-between gap-6 py-6 sm:py-7">
-                <span className="grid gap-3 sm:grid-cols-[3rem_1fr] sm:gap-5">
+              <summary className="flex min-h-16 cursor-pointer items-start justify-between gap-5 py-5 sm:py-6">
+                <span className="grid gap-2 sm:grid-cols-[3rem_1fr] sm:gap-5">
                   <span className="font-serif text-lg text-[var(--color-accent)]">0{index + 1}</span>
                   <span className="font-serif text-xl leading-tight text-[var(--color-ink)] sm:text-2xl">
                     {faq.question}
@@ -53,7 +54,7 @@ export default function Faq() {
                   +
                 </span>
               </summary>
-              <p className="max-w-2xl pb-7 pl-0 text-sm leading-7 text-[var(--color-muted)] sm:pl-[5rem] sm:text-base">
+              <p className="max-w-2xl pb-6 pl-0 text-sm leading-7 text-[var(--color-muted)] sm:pl-[5rem] sm:text-base">
                 {faq.answer}
               </p>
             </details>

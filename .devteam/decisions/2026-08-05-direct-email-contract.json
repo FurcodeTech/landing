@@ -1,0 +1,8 @@
+{
+  "id": "direct-email-contract",
+  "status": "approved",
+  "task": null,
+  "summary": "Usar mailto:contact@furcode.com.ar para información general y mailto:talent@furcode.com.ar para empleo, sin formulario, proveedor, asunto ni cuerpo prefabricado.",
+  "rationale": "Es el contrato explícito pedido por el usuario, abre el cliente elegido por cada visitante, evita persistir contenido en query strings de Gmail/Outlook y elimina la expectativa falsa de adjuntar CV desde la landing.",
+  "created_at": "2026-08-05T11:23:09-03:00"
+}

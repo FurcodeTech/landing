@@ -1,0 +1,8 @@
+{
+  "id": "preserve-editorial-architecture",
+  "status": "approved",
+  "task": null,
+  "summary": "Conservar la arquitectura React por secciones y la identidad editorial cálida; mejorar jerarquía y densidad con un refactor progresivo, no con un rediseño total.",
+  "rationale": "El render actual ya tiene una tesis visual diferenciada y una arquitectura simple. Los hallazgos de mayor impacto están en conversión, accesibilidad, dependencia, peso y entrega, que pueden resolverse con menos riesgo sin reabrir la marca.",
+  "created_at": "2026-08-05T11:23:09-03:00"
+}

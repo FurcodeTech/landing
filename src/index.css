@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: "Inter";
-  src: url("./assets/fonts/inter/InterVariable.ttf") format("truetype");
+  src: url("./assets/fonts/inter/InterVariable-latin-core.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -20,7 +20,7 @@
   --color-brand: #3f6653;
   --color-brand-strong: #284838;
   --color-brand-soft: #dfe9e1;
-  --color-accent: #a66f48;
+  --color-accent: #7d5134;
   --color-accent-soft: #f1dfd1;
   --color-night: #17231d;
   --shadow-lift: 0 22px 60px rgba(28, 39, 33, 0.11);
@@ -91,10 +91,31 @@ canvas {
   padding-inline: clamp(1rem, 3vw, 2.5rem);
 }
 
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  top: 1rem;
+  left: 1rem;
+  transform: translateY(-180%);
+  border-radius: 0.75rem;
+  background: var(--color-night);
+  padding: 0.75rem 1rem;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 160ms ease;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
 .display-title {
   font-family: Georgia, "Times New Roman", serif;
   font-weight: 500;
   letter-spacing: -0.055em;
+  text-wrap: balance;
 }
 
 .eyebrow {
@@ -176,6 +197,10 @@ details > summary {
 
 details > summary::-webkit-details-marker {
   display: none;
+}
+
+:where(#turnos, #metodo, #ecosistema, #preguntas, #contacto) {
+  scroll-margin-top: 1.25rem;
 }
 
 details[open] .faq-plus {

@@ -1,7 +1,22 @@
 {
+  "created_at": "2026-08-21T16:45:00-03:00",
+  "delivery_context": {
+    "context_digest": "e52875812ba64a790ecde0d949a1d03cf0a5f3ba533abe6c1d161af3eb538f54",
+    "orchestration_owner": "codex-devteam:codex-devteam-orchestrator",
+    "prepare_receipt": {
+      "prepared_head": "91c9f4d43ddc4c4e7375c783d8348cc46795d95d",
+      "receipt_canonical_sha256": "68bfe78b60bf20ab69d512f81ac2101755b4b33397d79ef8969031dee84c8de5",
+      "receipt_file_sha256": "ae76671d47551a5e9faafd7e1a3df0477adf74de28cd7c18e98f4219db5127f4",
+      "reference": ".devteam/receipts/2026-08-21-landing-turnos-publish-prepare.json",
+      "scope_sha256": "dce1fee21d86a2436d2da4c085bc265e8d725f6aa32e555f2e9a71d8cf58aba7"
+    },
+    "publication_owner": "furcode-github-ops:furcode-github-ops",
+    "repository": "FurcodeTech/landing",
+    "schema_version": 2
+  },
+  "mode": "standard",
   "project": "furcode-landing",
-  "workflow": "codex-devteam",
-  "mode": "single-task",
-  "createdAt": "2026-07-12T00:00:00-03:00",
-  "updatedAt": "2026-07-12T00:00:00-03:00"
+  "schema_version": 3,
+  "status": "completed",
+  "updated_at": "2026-08-21T20:41:15+00:00"
 }

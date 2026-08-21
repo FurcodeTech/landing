@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "surface": "landing-turnos-conversion-2026-08-21",
+  "status": "passed",
+  "deployment_performed": false,
+  "inspect": {
+    "valid": true,
+    "package_manager": "npm",
+    "lockfile": "package-lock.json",
+    "scripts": ["build", "lint"],
+    "report_sha256": "a99db82dd7ebf352619106e4f9e0a336271b328dacd5a3a3fcfaa084ed37b970"
+  },
+  "checks": [
+    "npm.cmd ci --ignore-scripts --no-audit",
+    "npm.cmd run lint",
+    "npm.cmd run build",
+    "npm.cmd audit --json",
+    "npm.cmd audit --omit=dev --json",
+    "npm.cmd ls nanoid --all",
+    "git diff --check",
+    "vite_readiness.py verify-dist",
+    "production preview smoke on 127.0.0.1:4174"
+  ],
+  "bundle": {
+    "valid": true,
+    "file_count": 8,
+    "total_bytes": 311884,
+    "tree_sha256": "344f78367704bbe5773ffb919b342a3951bc8b07a9046bbd5bed5e3b017d3282",
+    "report_sha256": "e75c00dbffdda65c51615564860d395d1d514df7423d42d1728b1d7c7110ae92"
+  },
+  "audit": {
+    "all_dependencies": 0,
+    "production_dependencies": 0,
+    "nanoid_resolution": "3.3.18"
+  },
+  "not_run": [
+    "No exact test script exists in package.json.",
+    "No separate exact typecheck script exists; TypeScript runs inside npm.cmd run build."
+  ],
+  "not_verified": [
+    "Deployment, provider configuration and production-host behavior.",
+    "External mail-client and inbox delivery."
+  ]
+}

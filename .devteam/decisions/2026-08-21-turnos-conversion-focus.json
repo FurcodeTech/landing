@@ -1,0 +1,8 @@
+{
+  "id": "turnos-conversion-focus",
+  "status": "approved",
+  "task": null,
+  "summary": "Presentar Turnos como la propuesta comercial principal de la landing y mantener Backoffice, servicios y academia como oferta secundaria compacta.",
+  "rationale": "La landing actual demuestra amplitud pero diluye la acción principal. El roadmap aprobado prioriza un problema concreto de agenda y reservas sin inventar métricas, cupos, precios ni disponibilidad.",
+  "created_at": "2026-08-21T16:45:00-03:00"
+}

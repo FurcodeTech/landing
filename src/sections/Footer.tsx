@@ -1,542 +1,84 @@
-import { useEffect, useId, useState } from "react";
-import {
-  buildGmailComposeUrl,
-  buildOutlookComposeUrl,
-  contactEmail,
-  jobsEmail,
-  openComposeTab,
-} from "../lib/contact";
+import ArrowIcon from "../components/ArrowIcon";
+import { buildMailtoUrl, contactEmail, jobsEmail } from "../lib/contact";
+import type { FurcodeEmail } from "../lib/contact";
 
-const contactReasons = [
-  "Crear una herramienta interna",
-  "Automatizar tareas repetitivas",
-  "Capacitar a tu equipo",
-];
-
-const firstMessage = [
-  "Qué proceso querés mejorar",
-  "Qué herramientas usás hoy",
-  "Qué resultado esperás lograr",
-];
-
-const productOptions = [
-  {
-    title: "Software a medida",
-    description: "Herramientas internas, portales, automatizaciones e integraciones.",
-  },
-  {
-    title: "Implementación IT",
-    description: "Diagnóstico, selección de herramientas y puesta en marcha.",
-  },
-  {
-    title: "Academia práctica",
-    description: "Capacitación para equipos y profesionales.",
-  },
-];
-
-type ModalType = "contact" | "jobs" | null;
-
-function FieldLabel({ htmlFor, children }: { htmlFor: string; children: string }) {
+function MailChannel({
+  email,
+  title,
+  description,
+  primary = false,
+}: {
+  email: FurcodeEmail;
+  title: string;
+  description: string;
+  primary?: boolean;
+}) {
   return (
-    <label htmlFor={htmlFor} className="text-sm font-semibold text-slate-800">
-      {children}
-    </label>
+    <a
+      className={`group block rounded-[1.15rem] border p-5 text-left transition focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-[#17231d] ${primary
+        ? "border-amber-200/30 bg-amber-200/[0.09] hover:border-amber-200/60 hover:bg-amber-200/[0.14]"
+        : "border-white/10 bg-white/[0.035] hover:border-white/30 hover:bg-white/[0.06]"
+      }`}
+      href={buildMailtoUrl(email)}
+      aria-label={`${title}: ${email}`}
+    >
+      <span className="flex items-center justify-between gap-4">
+        <span className="text-sm font-semibold text-white">{title}</span>
+        <ArrowIcon />
+      </span>
+      <span className={`mt-3 block break-all text-base font-semibold ${primary ? "text-amber-100" : "text-white"}`}>
+        {email}
+      </span>
+      <span className="mt-2 block text-xs leading-5 text-slate-400">{description}</span>
+    </a>
   );
 }
 
 export default function Footer() {
-  const [activeModal, setActiveModal] = useState<ModalType>(null);
-  const [composeProvider, setComposeProvider] = useState<"gmail" | "outlook">("gmail");
-  const [companyName, setCompanyName] = useState("");
-  const [contactName, setContactName] = useState("");
-  const [selectedProduct, setSelectedProduct] = useState(productOptions[0].title);
-  const [contactMessage, setContactMessage] = useState("");
-  const [applicantName, setApplicantName] = useState("");
-  const [cvFileName, setCvFileName] = useState("");
-  const [jobMessage, setJobMessage] = useState("");
-
-  const companyId = useId();
-  const contactId = useId();
-  const contactMessageId = useId();
-  const applicantId = useId();
-  const cvId = useId();
-  const jobMessageId = useId();
-
-  const getComposeUrl = (email: string, subject: string, body: string) => {
-    return composeProvider === "gmail"
-      ? buildGmailComposeUrl(email, subject, body)
-      : buildOutlookComposeUrl(email, subject, body);
-  };
-
-  const closeModal = () => setActiveModal(null);
-
-  useEffect(() => {
-    if (!activeModal) {
-      return;
-    }
-
-    const previousOverflow = document.body.style.overflow;
-
-    document.body.style.overflow = "hidden";
-
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        closeModal();
-      }
-    };
-
-    window.addEventListener("keydown", handleEscape);
-
-    return () => {
-      window.removeEventListener("keydown", handleEscape);
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [activeModal]);
-
-  const handleContactSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const subject = `${companyName} | ${selectedProduct}`;
-    const body = [
-      `Nombre: ${contactName}`,
-      `Empresa: ${companyName}`,
-      `Interes: ${selectedProduct}`,
-      "",
-      contactMessage,
-    ].join("\n");
-
-    openComposeTab(getComposeUrl(contactEmail, subject, body));
-    closeModal();
-  };
-
-  const handleJobSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const body = [
-      jobMessage,
-      "",
-      cvFileName
-        ? `CV seleccionado: ${cvFileName}. Adjuntalo en el cliente de correo antes de enviar.`
-        : "CV pendiente de adjuntar.",
-    ].join("\n");
-
-    openComposeTab(getComposeUrl(jobsEmail, `Postulacion | ${applicantName}`, body));
-    closeModal();
-  };
-
   return (
-    <footer id="contacto" className="relative overflow-hidden bg-[var(--color-night)] text-white">
+    <footer id="contacto" aria-labelledby="contacto-title" className="relative overflow-hidden bg-[var(--color-night)] text-white">
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[radial-gradient(circle_at_top_left,rgba(166,111,72,0.24),transparent_42%),radial-gradient(circle_at_80%_20%,rgba(95,139,114,0.18),transparent_38%)]"
         aria-hidden="true"
       />
-      <div className="section-shell relative flex flex-col py-16 sm:py-20 lg:py-24">
-        <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:gap-12">
+
+      <div className="section-shell relative py-16 sm:py-20 lg:py-24">
+        <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:gap-16">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#d9b99f] sm:text-sm">
-              Contacto
-            </p>
-            <h2 className="display-title mt-3 max-w-2xl text-4xl leading-[0.98] sm:text-5xl lg:text-6xl">
-              Contanos qué querés ordenar, automatizar o construir.
+            <p className="eyebrow text-[#d9b99f]">Hablemos</p>
+            <h2 id="contacto-title" className="display-title mt-3 max-w-2xl text-4xl leading-[0.98] sm:text-5xl lg:text-6xl">
+              ¿Querés ordenar tu agenda con Turnos?
             </h2>
-            <p className="mt-4 max-w-xl text-sm leading-7 text-slate-300 sm:text-base">
-              Te respondemos con una mirada concreta: qué conviene hacer primero, qué puede
-              esperar y cómo avanzar sin sumar complejidad innecesaria.
+            <p className="mt-5 max-w-xl text-sm leading-7 text-slate-300 sm:text-base">
+              Escribinos para conocer el alcance actual y evaluar el próximo paso. Si tu necesidad
+              es otra, también la leemos desde el mismo canal.
             </p>
-
-            <div className="mt-7 grid gap-3 sm:grid-cols-3">
-              {contactReasons.map((reason) => (
-                <div
-                  key={reason}
-                  className="rounded-[1.1rem] border border-white/10 bg-white/[0.035] p-4 text-sm font-medium text-slate-200 shadow-[0_12px_24px_rgba(0,0,0,0.12)]"
-                >
-                  <span className="mb-3 block h-2 w-2 rounded-full bg-amber-300" />
-                  {reason}
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <a
-                className="inline-flex items-center justify-center rounded-full bg-amber-300 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-[#0f0f10]"
-                href={buildGmailComposeUrl(
-                  contactEmail,
-                  "Consulta para Furcode",
-                  "Hola Furcode,\n\nQuiero contarles un proceso que quiero ordenar y ver si encaja con lo que hacen.\n\nQuedo atento/a.",
-                )}
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                Escribir por Gmail
-              </a>
-              <button
-                type="button"
-                onClick={() =>
-                  openComposeTab(
-                    buildOutlookComposeUrl(
-                      contactEmail,
-                      "Consulta para Furcode",
-                      "Hola Furcode,\n\nQuiero contarles un proceso que quiero ordenar y ver si encaja con lo que hacen.\n\nQuedo atento/a.",
-                    ),
-                  )
-                }
-                className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/[0.06] px-5 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-[#0f0f10]"
-              >
-                Escribir por Outlook
-              </button>
-            </div>
+            <p className="mt-6 max-w-lg text-xs leading-5 text-slate-400">
+              Si el enlace no abre tu cliente de correo, copiá la dirección visible y escribinos
+              desde tu aplicación habitual.
+            </p>
           </div>
 
-          <div className="space-y-4">
-            <div className="rounded-[1.45rem] border border-white/10 bg-white/[0.045] p-4 shadow-[0_20px_40px_rgba(0,0,0,0.18)] sm:p-5">
-              <p className="text-sm font-semibold text-white">Canales directos</p>
-              <div className="mt-4 space-y-3 text-sm">
-                <a
-                  className="block w-full rounded-[1rem] border border-white/10 bg-black/[0.10] p-3 text-left font-semibold text-white transition hover:border-amber-300/60 hover:bg-black/[0.15] focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-[#0f0f10] sm:p-4"
-                  href={buildGmailComposeUrl(
-                    contactEmail,
-                    "Consulta para Furcode",
-                    "Hola Furcode,\n\nQuiero contarles un proceso que quiero ordenar y ver si encaja con lo que hacen.\n\nQuedo atento/a.",
-                  )}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  {contactEmail}
-                  <span className="mt-1 block font-normal text-slate-400">
-                    Abrir en Gmail
-                  </span>
-                </a>
-                <button
-                  className="block w-full rounded-[1rem] border border-white/10 bg-black/[0.10] p-3 text-left font-semibold text-white transition hover:border-white/25 hover:bg-black/[0.15] focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-[#0f0f10] sm:p-4"
-                  type="button"
-                  onClick={() =>
-                    openComposeTab(
-                      buildOutlookComposeUrl(
-                        contactEmail,
-                        "Consulta para Furcode",
-                        "Hola Furcode,\n\nQuiero contarles un proceso que quiero ordenar y ver si encaja con lo que hacen.\n\nQuedo atento/a.",
-                      ),
-                    )
-                  }
-                >
-                  {contactEmail}
-                  <span className="mt-1 block font-normal text-slate-400">
-                    Abrir en Outlook
-                  </span>
-                </button>
-                <button
-                  className="block w-full rounded-[1rem] border border-amber-300/20 bg-amber-300/[0.08] p-3 text-left font-semibold text-amber-100 transition hover:border-amber-300/50 hover:bg-amber-300/[0.12] focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-[#0f0f10] sm:p-4"
-                  type="button"
-                  onClick={() => setActiveModal("jobs")}
-                >
-                  {jobsEmail}
-                  <span className="mt-1 block font-normal text-amber-100/70">
-                    Enviar propuesta laboral
-                  </span>
-                </button>
-              </div>
-            </div>
-
-            <div className="rounded-[1.45rem] border border-amber-300/20 bg-amber-300/10 p-4 sm:p-5">
-              <p className="text-sm font-semibold text-amber-100">Para avanzar más rápido</p>
-              <ul className="mt-4 space-y-3 text-sm text-slate-200">
-                {firstMessage.map((item) => (
-                  <li key={item} className="flex gap-3">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-300" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => setActiveModal("contact")}
-              className="inline-flex w-full items-center justify-center rounded-full bg-amber-300 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-[#0f0f10] sm:w-auto"
-            >
-              Abrir formulario guiado
-            </button>
+          <div className="space-y-3">
+            <MailChannel
+              email={contactEmail}
+              title="Turnos, productos y proyectos"
+              description="Para conocer Turnos, Backoffice, implementaciones y soluciones a medida."
+              primary
+            />
+            <MailChannel
+              email={jobsEmail}
+              title="Quiero trabajar en Furcode"
+              description="Para búsquedas de empleo, propuestas laborales y talento."
+            />
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between lg:mt-10">
+        <div className="mt-12 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} Furcode. Todos los derechos reservados.</p>
-          <p>Argentina · Software, servicios y academia</p>
+          <p>Software claro para negocios reales · Argentina</p>
         </div>
       </div>
-
-      {activeModal && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 px-4 py-6 backdrop-blur-sm"
-          role="presentation"
-          onMouseDown={(event) => {
-            if (event.target === event.currentTarget) {
-              closeModal();
-            }
-          }}
-        >
-          <div
-            className="max-h-[min(760px,calc(100dvh-3rem))] w-full max-w-2xl overflow-y-auto rounded-[1.4rem] bg-white p-5 text-slate-950 shadow-2xl sm:p-6"
-            data-modal="true"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby={activeModal === "contact" ? "contact-modal-title" : "jobs-modal-title"}
-          >
-            <div className="flex items-start justify-between gap-4 border-b border-slate-200 pb-4">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                  {activeModal === "contact" ? "Proyectos y consultas" : "Talento"}
-                </p>
-                <h3
-                  id={activeModal === "contact" ? "contact-modal-title" : "jobs-modal-title"}
-                  className="mt-1 text-2xl font-semibold tracking-tight"
-                >
-                  {activeModal === "contact" ? "Armemos el primer mensaje" : "Enviar postulación"}
-                </h3>
-              </div>
-              <button
-                className="rounded-full border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-300"
-                type="button"
-                onClick={closeModal}
-              >
-                Cerrar
-              </button>
-            </div>
-
-            {activeModal === "contact" ? (
-              <form className="mt-5 space-y-5" onSubmit={handleContactSubmit}>
-                <div className="space-y-2">
-                  <p className="text-sm font-semibold text-slate-800">Abrir en</p>
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <button
-                      type="button"
-                      onClick={() => setComposeProvider("gmail")}
-                      aria-pressed={composeProvider === "gmail"}
-                      className={`rounded-[1rem] border px-4 py-3 text-left transition ${
-                        composeProvider === "gmail"
-                          ? "border-slate-950 bg-slate-950 text-white"
-                          : "border-slate-200 bg-slate-50 text-slate-800 hover:border-slate-400"
-                      }`}
-                    >
-                      <span className="block text-sm font-semibold">Gmail</span>
-                      <span
-                        className={`mt-1 block text-xs ${
-                          composeProvider === "gmail" ? "text-slate-300" : "text-slate-500"
-                        }`}
-                      >
-                        Nueva pestaña del navegador
-                      </span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setComposeProvider("outlook")}
-                      aria-pressed={composeProvider === "outlook"}
-                      className={`rounded-[1rem] border px-4 py-3 text-left transition ${
-                        composeProvider === "outlook"
-                          ? "border-slate-950 bg-slate-950 text-white"
-                          : "border-slate-200 bg-slate-50 text-slate-800 hover:border-slate-400"
-                      }`}
-                    >
-                      <span className="block text-sm font-semibold">Outlook</span>
-                      <span
-                        className={`mt-1 block text-xs ${
-                          composeProvider === "outlook" ? "text-slate-300" : "text-slate-500"
-                        }`}
-                      >
-                        Nueva pestaña del navegador
-                      </span>
-                    </button>
-                  </div>
-                </div>
-
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="space-y-2">
-                    <FieldLabel htmlFor={companyId}>Nombre de la empresa</FieldLabel>
-                    <input
-                      id={companyId}
-                      className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-amber-300"
-                      required
-                      value={companyName}
-                      onChange={(event) => setCompanyName(event.target.value)}
-                      autoComplete="organization"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <FieldLabel htmlFor={contactId}>Tu nombre</FieldLabel>
-                    <input
-                      id={contactId}
-                      className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-amber-300"
-                      required
-                      value={contactName}
-                      onChange={(event) => setContactName(event.target.value)}
-                      autoComplete="name"
-                    />
-                  </div>
-                </div>
-
-                <fieldset>
-                  <legend className="text-sm font-semibold text-slate-800">
-                    Producto por el que nos contactas
-                  </legend>
-                  <div className="mt-3 grid gap-3 sm:grid-cols-3">
-                    {productOptions.map((product) => {
-                      const isSelected = selectedProduct === product.title;
-
-                      return (
-                        <button
-                          key={product.title}
-                          aria-pressed={isSelected}
-                          className={`rounded-lg border p-3 text-left transition ${
-                            isSelected
-                              ? "border-slate-950 bg-slate-950 text-white"
-                              : "border-slate-200 bg-slate-50 text-slate-800 hover:border-slate-400"
-                          }`}
-                          type="button"
-                          onClick={() => setSelectedProduct(product.title)}
-                        >
-                          <span className="block text-sm font-semibold">{product.title}</span>
-                          <span
-                            className={`mt-2 block text-xs leading-5 ${
-                              isSelected ? "text-slate-300" : "text-slate-500"
-                            }`}
-                          >
-                            {product.description}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </fieldset>
-
-                <div className="space-y-2">
-                  <FieldLabel htmlFor={contactMessageId}>Contexto del proyecto</FieldLabel>
-                  <textarea
-                    id={contactMessageId}
-                    className="min-h-32 w-full resize-y rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-amber-300"
-                    required
-                    value={contactMessage}
-                    onChange={(event) => setContactMessage(event.target.value)}
-                  />
-                </div>
-
-                <button
-                  className="inline-flex w-full items-center justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 sm:w-auto"
-                  type="submit"
-                >
-                  {composeProvider === "gmail" ? "Enviar en Gmail" : "Enviar en Outlook"}
-                </button>
-                <p className="text-xs leading-5 text-slate-500">
-                  Al enviar se abrirá una pestaña nueva del navegador con el mensaje listo.
-                </p>
-              </form>
-            ) : (
-              <form className="mt-5 space-y-5" onSubmit={handleJobSubmit}>
-                <div className="space-y-2">
-                  <p className="text-sm font-semibold text-slate-800">Abrir en</p>
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <button
-                      type="button"
-                      onClick={() => setComposeProvider("gmail")}
-                      aria-pressed={composeProvider === "gmail"}
-                      className={`rounded-[1rem] border px-4 py-3 text-left transition ${
-                        composeProvider === "gmail"
-                          ? "border-slate-950 bg-slate-950 text-white"
-                          : "border-slate-200 bg-slate-50 text-slate-800 hover:border-slate-400"
-                      }`}
-                    >
-                      <span className="block text-sm font-semibold">Gmail</span>
-                      <span
-                        className={`mt-1 block text-xs ${
-                          composeProvider === "gmail" ? "text-slate-300" : "text-slate-500"
-                        }`}
-                      >
-                        Nueva pestaña del navegador
-                      </span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setComposeProvider("outlook")}
-                      aria-pressed={composeProvider === "outlook"}
-                      className={`rounded-[1rem] border px-4 py-3 text-left transition ${
-                        composeProvider === "outlook"
-                          ? "border-slate-950 bg-slate-950 text-white"
-                          : "border-slate-200 bg-slate-50 text-slate-800 hover:border-slate-400"
-                      }`}
-                    >
-                      <span className="block text-sm font-semibold">Outlook</span>
-                      <span
-                        className={`mt-1 block text-xs ${
-                          composeProvider === "outlook" ? "text-slate-300" : "text-slate-500"
-                        }`}
-                      >
-                        Nueva pestaña del navegador
-                      </span>
-                    </button>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <FieldLabel htmlFor={applicantId}>Nombre</FieldLabel>
-                  <input
-                    id={applicantId}
-                    className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-amber-300"
-                    required
-                    value={applicantName}
-                    onChange={(event) => setApplicantName(event.target.value)}
-                    autoComplete="name"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <FieldLabel htmlFor={cvId}>CV</FieldLabel>
-                  <label
-                    className="flex cursor-pointer flex-col rounded-[1rem] border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600 transition hover:border-slate-500"
-                    htmlFor={cvId}
-                  >
-                    <span className="font-semibold text-slate-900">
-                      {cvFileName || "Cargar PDF, Word o imagen"}
-                    </span>
-                    <span className="mt-1 text-xs">
-                      El archivo se selecciona acá, pero debe adjuntarse en el cliente de mail.
-                    </span>
-                  </label>
-                  <input
-                    id={cvId}
-                    className="sr-only"
-                    type="file"
-                    accept=".pdf,.doc,.docx,image/*"
-                    required
-                    onChange={(event) => {
-                      setCvFileName(event.target.files?.[0]?.name ?? "");
-                    }}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <FieldLabel htmlFor={jobMessageId}>Presentacion</FieldLabel>
-                  <textarea
-                    id={jobMessageId}
-                    className="min-h-32 w-full resize-y rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-amber-300"
-                    required
-                    value={jobMessage}
-                    onChange={(event) => setJobMessage(event.target.value)}
-                  />
-                </div>
-
-                <button
-                  className="inline-flex w-full items-center justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 sm:w-auto"
-                  type="submit"
-                >
-                  {composeProvider === "gmail" ? "Enviar en Gmail" : "Enviar en Outlook"}
-                </button>
-                <p className="text-xs leading-5 text-slate-500">
-                  Al enviar se abrirá una pestaña nueva del navegador. Adjuntá el CV antes de confirmar el envío.
-                </p>
-              </form>
-            )}
-          </div>
-        </div>
-      )}
     </footer>
   );
 }

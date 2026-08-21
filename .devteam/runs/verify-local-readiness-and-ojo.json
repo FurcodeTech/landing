@@ -1,0 +1,36 @@
+{
+  "commands": [
+    "vite_readiness.py inspect",
+    "npm.cmd ci --ignore-scripts --no-audit",
+    "npm.cmd run lint",
+    "npm.cmd run build",
+    "npm.cmd audit --json",
+    "npm.cmd audit --omit=dev --json",
+    "npm.cmd ls nanoid --all",
+    "git diff --check",
+    "vite_readiness.py verify-dist",
+    "npm.cmd run preview -- --host 127.0.0.1 --port 4174 --strictPort",
+    "Browser QA at 320x844, 390x844, 768x900 and 1440x900"
+  ],
+  "completed_at": "2026-08-21T17:08:00-03:00",
+  "files": [
+    ".furcodeui/visual-qa.json",
+    ".furcodeui/vite-readiness.json"
+  ],
+  "outcomes": [
+    "Clean npm installation, lint and TypeScript/Vite production build pass.",
+    "The generated dist contains eight files, 311884 bytes and a stable recorded tree hash.",
+    "Full-tree and production npm audits report zero findings; nanoid resolves to 3.3.18.",
+    "All four target viewports have zero horizontal overflow, zero undersized visible targets, one H1 and no duplicate IDs.",
+    "The dedicated production preview has zero console errors or warnings and remains open on port 4174.",
+    "Ojo found no P0 or P1 issue."
+  ],
+  "residual_risks": [
+    "Synthetic Enter and Space activation was not reliable in the in-app Browser harness, so only native summary semantics, focus and pointer disclosure are claimed.",
+    "Deployment, production-host configuration and external email delivery remain unverified."
+  ],
+  "schema_version": 3,
+  "started_at": "2026-08-21T17:02:00-03:00",
+  "status": "completed",
+  "task": "verify-local-readiness-and-ojo"
+}

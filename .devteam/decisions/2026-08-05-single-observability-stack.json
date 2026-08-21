@@ -1,0 +1,8 @@
+{
+  "id": "single-observability-stack",
+  "status": "proposed",
+  "task": "optimize-delivery-security-seo",
+  "summary": "Retirar Plausible y conservar Vercel Analytics más Speed Insights como las únicas capas de medición de tráfico y rendimiento.",
+  "rationale": "Plausible y Vercel Analytics duplican medición de tráfico. Mantener la analítica y los Web Vitals ya integrados con el hosting reduce requests, proveedores, superficie CSP y redundancia sin perder observabilidad funcional.",
+  "created_at": "2026-08-05T11:23:09-03:00"
+}
